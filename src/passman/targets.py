@@ -3,7 +3,7 @@
 #
 
 # import project specific modules.
-from passman.exceptions import InvalidKeyword, InvalidExportType
+from exceptions import InvalidKeyword, InvalidExportType
 
 # import other arguments
 from cryptography.fernet import Fernet
@@ -16,6 +16,12 @@ from os.path import join as jPath, exists as there
 from datetime import datetime
 # from tabulate import tabulate
 import pandas as pd
+
+#
+# The format to save the persistent passwords file ==>
+# key:value|key:value|...\n
+#
+#
 
 class targets:
     def __init__(self, masterpassword: bytes, mastersalt: bytes = "passman".encode('ascii')):
@@ -31,28 +37,30 @@ class targets:
         """
         # initialize data
         self.data:list[dict] = []
-        
+        self.msalt = mastersalt
+        self.mpass = masterpassword
+    
+    def init(self):
         # create kdf object
         _kdf = PBKDF2HMAC(
             algorithm=SHA256(),
             length=32,
             iterations=480000,
-            salt=mastersalt,
+            salt=self.msalt,
         )
         
         # derive password digest
-        self.passwd = urlsafe_b64encode(_kdf.derive(masterpassword))
+        self.passwd = urlsafe_b64encode(_kdf.derive(self.mpass))
         
         # define fernet object
         self.fernet = Fernet(self.passwd)
         
-        # check for pre-existing config files
+        # check for pre-existing config files => for persistent memory
         # -> if not found, create
         # --> store home path
         home = str(Path.home())
-        if not there(jPath(home, '.passman')):
-            makedirs(jPath(home, '.passman'))
         
+        # if config file present, else create an init entry.
         if there(jPath(home, '.passman', '.passwords')):
             # open passwords file
             with open(jPath(home, '.passman', '.passwords'), 'rb') as p:
@@ -62,6 +70,37 @@ class targets:
             
             # divide content based on lines
             content = content.split('\n')
+            
+            # for each line add the data to self.data
+            for x in content:
+                # split key-value pairs
+                x = x.split('|')
+                # for each key-value pair, store key and value
+                # -> in data
+                data = {}
+                for kv in x:
+                    # split keys and values
+                    kv = kv.split(':')
+                    data[kv[0]] = kv[1]
+                
+                self.data.append(data)
+            
+            content = None
+        else:
+            # create a .passwordsfile
+            with open(jPath(home, ".passman", '.passwords'), 'w') as pfile:
+                pfile.write(f"target-type:init|target:init|username:init|password:{self.fernet.encrypt('init'.encode('ascii'))}|timestamp:{datetime.today().strftime('%Y-%m-%d')}\n")
+            
+            with open(jPath(home, ".passman", '.passwords'), 'rb') as p:
+                content = p.read()
+            
+            content = self.fernet.encrypt(content)
+            
+            with open(jPath(home, ".passman", '.passwords'), 'wb') as pfile:
+                pfile.write(content)
+            
+            content = None
+        
     
     def add(self, target:str, targettype: str, username: str, password:bytes):
         """Add data in collection.
@@ -72,15 +111,52 @@ class targets:
             username (str): credential
             password (bytes): password in bytes. Encoding -> 'ascii'
         """
+        # set date time format
+        t = datetime.today().strftime("%Y-%m-%d")
+        
+        # define data instance
         data = {
             "target-type":targettype,
             "target":target,
             "username":username,
             "password":self.fernet.encrypt(password),
-            "timestamp":datetime.now()
+            "timestamp":t
         }
         
+        # append to self.data for safe keeping
         self.data.append(data)
+        
+        # create the string to be written in .passwords file
+        pstring = "target-type:"+targettype+'|'+"target:"+target+'|'+"username:"+username+'|'+"password:"+self.fernet.encrypt(password).decode('ascii')+"|"+"timestamp:"+t
+        
+        # decrypt the passwords file
+        # -> read it
+        with open(jPath(str(Path.home()), ".passman", '.passwords'), 'rb') as pfile:
+            content = pfile.read()
+        
+        # decrypt
+        content = self.fernet.decrypt(content)
+        
+        # add entry
+        content = content.decode('ascii').split('\n') # split by lines
+        content.append(pstring)
+        
+        pstring = None
+        
+        # generate the string again
+        newcontent = ""
+        for x in content:
+            newcontent += x + "\n"
+        
+        content = None
+        
+        newcontent = self.fernet.encrypt(newcontent.encode('ascii'))
+        
+        # write it
+        with open(jPath(str(Path.home()), '.passman', '.passwords'), 'w') as pfile:
+            pfile.write(newcontent)
+        
+        newcontent = None
     
     def remove(self, target:str, username: str):
         """remove an entry from the collection of all entries.
