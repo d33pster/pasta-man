@@ -1,2 +1,2 @@
-# password-manager
+# pasta-man
 Password Manager in python
