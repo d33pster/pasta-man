@@ -3,6 +3,7 @@
 # import project specific modules
 from _class import pmanager
 from encryption import Encryption
+from exceptions import NoneTypeVariable
 
 # import libs
 from tkinter import *
@@ -16,42 +17,45 @@ import threading
 
 def locker(masterpassword: str):
     global encb
-    enc = Encryption("passman".encode('ascii'), masterpassword.encode('ascii'))
+    enc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
     enc.lock()
     encb = enc.__encryptedstring__
 
 def unlocker(encpassword: str):
     global dencb
-    denc = Encryption("passman".encode("ascii"), encpassword.encode('ascii'))
+    denc = Encryption("pastaman".encode("ascii"), encpassword.encode('ascii'))
     denc.unlock()
     dencb = denc.__unencryptedstring__
 
 def checkmfile(home = str(Path.home())) -> bytes:
     # --> find out if master password is defined -> .m file
-    if not there(jPath(home, '.passman', '.m')):
+    if not there(jPath(home, '.pastaman', '.m')):
         # ask dialog
         masterpassword = simpledialog.askstring("User Input", "Enter Master Password: ")
+        # check if it is empty or non
+        if masterpassword=='' or masterpassword==None:
+            raise NoneTypeVariable('Aborted.')
         # encode it
         masterpassword = masterpassword.encode('ascii')
         # lock it -> store it
         # -> define Encryption object
-        # enc = Encryption("passman".encode('ascii'), masterpassword)
+        # enc = Encryption("pastaman".encode('ascii'), masterpassword)
         # # -> lock it
         # enc.lock()
         enct = threading.Thread(target=locker, args=(masterpassword.decode('ascii'),))
         enct.start()
         enct.join()
         # -> store it
-        with open(jPath(home, '.passman', '.m'), 'wb') as m:
+        with open(jPath(home, '.pastaman', '.m'), 'wb') as m:
             m.write(encb)
     else:
         # if m is present
         # -> read it
-        with open(jPath(home, '.passman', '.m'), 'rb') as m:
+        with open(jPath(home, '.pastaman', '.m'), 'rb') as m:
             masterpassword = m.read() # this is encrypted
         
         # -> decrypt it using the Encryption class
-        # denc = Encryption("passman".encode('ascii'), masterpassword)
+        # denc = Encryption("pastaman".encode('ascii'), masterpassword)
         # denc.unlock()
         denct = threading.Thread(target=unlocker, args=(masterpassword.decode('ascii'),))
         denct.start()
@@ -66,9 +70,9 @@ def main():
     global encb, dencb
     # -> home folder
     home = str(Path.home())
-    # -> find out if .passman folder is there
-    if not there(jPath(home, '.passman')):
-        makedirs(jPath(home, '.passman'))
+    # -> find out if .pastaman folder is there
+    if not there(jPath(home, '.pastaman')):
+        makedirs(jPath(home, '.pastaman'))
     
     masterpassword = checkmfile()
     
