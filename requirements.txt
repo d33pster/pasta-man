@@ -1,3 +1,4 @@
 cryptography
 pandas
 tabulate
+termcolor
