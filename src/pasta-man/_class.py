@@ -13,7 +13,7 @@ import threading
 class pmanager:
     def __init__(self, master:Tk, masterpassword: bytes):
         self.parent = master
-        self.parent.title('Pass Man')
+        self.parent.title('Pasta-Man')
         self.parent.geometry('530x300+400+280')
         self.arch = targets(masterpassword)
         
@@ -39,6 +39,46 @@ class pmanager:
         
         # -> invoke _makeAdd_ to create Add Screen
         self._makeAdd_()
+        
+        # -> invoke _makeFetch_ to create Fetch Screen
+        self._makeFetch_()
+    
+    def _makeFetch_(self):
+        # -> create eclosing frame under Fetch
+        self.FEF = ttk.Frame(self.gettab)
+        self.FEF.pack(fill=BOTH, expand=True)
+        
+        # -> find targets and fetch it later
+        t1 = threading.Thread(target=self.arch.targets)
+        t1.start()
+        
+        # -> create search Entry and label
+        self.searchLabel = ttk.Label(self.FEF, text='Search:', font=('Verdana', 14))
+        self.searchLabel.place(anchor='center', relx=0.12,rely=0.16 )
+        
+        # ---> Entry
+        self.varsearch = StringVar()
+        self.searchEntry = ttk.Entry(self.FEF, textvariable=self.varsearch, width=24)
+        self.searchEntry.place(anchor='center', relx=0.295, rely=0.3)
+        
+        # -> create search button
+        self.searchbutton = ttk.Button(self.FEF, text='[ Search ]', default=ACTIVE, command=self.search)
+        self.searchbutton.place(anchor='center', relx=0.5, rely=0.65)
+        
+        # -> create target type label
+        self.tarLabel = ttk.Label(self.FEF, text='Target Type:', font=('Verdana', 14))
+        self.tarLabel.place(anchor='center', relx=0.67,rely=0.16)
+        
+        # -> create dropdown menu.
+        # ----> create a var for option
+        self.varoption = StringVar()
+        t1.join()
+        self.targtypelist = ttk.OptionMenu(self.FEF, self.varoption, *self.arch.__target_types__)
+        self.targtypelist.place(anchor='center', relx=0.75, rely=0.3, relwidth=0.35)
+    
+    def search(self):
+        pass
+        
         
     def _makeAdd_(self):
         # -> create enclosing frame under Add
@@ -104,6 +144,12 @@ class pmanager:
         
         # set status bar
         self.status.set('Added.')
+        
+        # reinit the _makeFetch_ to refresh newly added Entries
+        for widget in self.gettab.winfo_children():
+            widget.destroy()
+        
+        self._makeFetch_()
         
         # after 3 sec clear status bar
         self.statusbar.after(3000, self.clearstatus)
