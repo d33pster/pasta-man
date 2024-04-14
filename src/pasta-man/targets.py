@@ -74,7 +74,7 @@ class targets:
             # for each line add the data to self.data
             for x in content:
                 if x=="":
-                    break
+                    continue
                 # split key-value pairs
                 x = x.split('|') # [k:v, k:v, ...]
                 # for each key-value pair, store key and value
