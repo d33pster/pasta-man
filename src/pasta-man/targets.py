@@ -69,12 +69,14 @@ class targets:
             content = self.fernet.decrypt(content)
             
             # divide content based on lines
-            content = content.split('\n')
+            content = content.decode('ascii').split('\n')
             
             # for each line add the data to self.data
             for x in content:
+                if x=="":
+                    break
                 # split key-value pairs
-                x = x.split('|')
+                x = x.split('|') # [k:v, k:v, ...]
                 # for each key-value pair, store key and value
                 # -> in data
                 data = {}
@@ -89,7 +91,7 @@ class targets:
         else:
             # create a .passwordsfile
             with open(jPath(home, ".passman", '.passwords'), 'w') as pfile:
-                pfile.write(f"target-type:init|target:init|username:init|password:{self.fernet.encrypt('init'.encode('ascii'))}|timestamp:{datetime.today().strftime('%Y-%m-%d')}\n")
+                pfile.write(f"target-type:init|target:init|username:init|password:{self.fernet.encrypt('init'.encode('ascii')).decode('ascii')}|timestamp:{datetime.today().strftime('%Y-%m-%d')}\n")
             
             with open(jPath(home, ".passman", '.passwords'), 'rb') as p:
                 content = p.read()
@@ -153,7 +155,7 @@ class targets:
         newcontent = self.fernet.encrypt(newcontent.encode('ascii'))
         
         # write it
-        with open(jPath(str(Path.home()), '.passman', '.passwords'), 'w') as pfile:
+        with open(jPath(str(Path.home()), '.passman', '.passwords'), 'wb') as pfile:
             pfile.write(newcontent)
         
         newcontent = None
