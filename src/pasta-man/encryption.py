@@ -9,7 +9,7 @@ class Encryption:
             algorithm=SHA256(),
             length=32,
             iterations=480000,
-            salt="passman".encode('ascii')
+            salt="pastaman".encode('ascii')
         )
         
         self.str = string
