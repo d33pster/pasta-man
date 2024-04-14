@@ -10,3 +10,6 @@ class InvalidExportType(Exception):
 
 class NoneTypeVariable(Exception):
     pass
+
+class OptError(Exception):
+    pass
