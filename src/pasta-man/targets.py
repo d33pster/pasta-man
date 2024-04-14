@@ -24,16 +24,16 @@ import pandas as pd
 #
 
 class targets:
-    def __init__(self, masterpassword: bytes, mastersalt: bytes = "passman".encode('ascii')):
+    def __init__(self, masterpassword: bytes, mastersalt: bytes = "pastaman".encode('ascii')):
         """Initialize targets class.
 
         Args:
             masterpassword (bytes): master password encoded in 'ascii'
-            mastersalt (bytes, optional): master salt encoded in 'ascii'. Defaults to "passman".encode('ascii').
+            mastersalt (bytes, optional): master salt encoded in 'ascii'. Defaults to "pastaman".encode('ascii').
         
         Description:
             masterpassword: The Password to Encrypt All. To encode in bytes, use <password-value>.encode('ascii')
-            mastersalt: Salt is addition text to strengthen the password. By default it is set to 'passman'. To encode in bytes, use <salt-text>.encode('ascii')
+            mastersalt: Salt is addition text to strengthen the password. By default it is set to 'pastaman'. To encode in bytes, use <salt-text>.encode('ascii')
         """
         # initialize data
         self.data:list[dict] = []
@@ -61,9 +61,9 @@ class targets:
         home = str(Path.home())
         
         # if config file present, else create an init entry.
-        if there(jPath(home, '.passman', '.passwords')):
+        if there(jPath(home, '.pastaman', '.passwords')):
             # open passwords file
-            with open(jPath(home, '.passman', '.passwords'), 'rb') as p:
+            with open(jPath(home, '.pastaman', '.passwords'), 'rb') as p:
                 content = p.read()
             # decrypt passwords file
             content = self.fernet.decrypt(content)
@@ -90,15 +90,15 @@ class targets:
             content = None
         else:
             # create a .passwordsfile
-            with open(jPath(home, ".passman", '.passwords'), 'w') as pfile:
+            with open(jPath(home, ".pastaman", '.passwords'), 'w') as pfile:
                 pfile.write(f"target-type:init|target:init|username:init|password:{self.fernet.encrypt('init'.encode('ascii')).decode('ascii')}|timestamp:{datetime.today().strftime('%Y-%m-%d')}\n")
             
-            with open(jPath(home, ".passman", '.passwords'), 'rb') as p:
+            with open(jPath(home, ".pastaman", '.passwords'), 'rb') as p:
                 content = p.read()
             
             content = self.fernet.encrypt(content)
             
-            with open(jPath(home, ".passman", '.passwords'), 'wb') as pfile:
+            with open(jPath(home, ".pastaman", '.passwords'), 'wb') as pfile:
                 pfile.write(content)
             
             content = None
@@ -133,7 +133,7 @@ class targets:
         
         # decrypt the passwords file
         # -> read it
-        with open(jPath(str(Path.home()), ".passman", '.passwords'), 'rb') as pfile:
+        with open(jPath(str(Path.home()), ".pastaman", '.passwords'), 'rb') as pfile:
             content = pfile.read()
         
         # decrypt
@@ -155,7 +155,7 @@ class targets:
         newcontent = self.fernet.encrypt(newcontent.encode('ascii'))
         
         # write it
-        with open(jPath(str(Path.home()), '.passman', '.passwords'), 'wb') as pfile:
+        with open(jPath(str(Path.home()), '.pastaman', '.passwords'), 'wb') as pfile:
             pfile.write(newcontent)
         
         newcontent = None
@@ -243,6 +243,16 @@ class targets:
                 return dictionary
         
         return None
+
+    def targets(self):
+        ts:list[str] = []
+        added = []
+        for dictionary in self.data:
+            if dictionary['target-type']!="init" and dictionary['target-type'] not in added:
+                ts.append(dictionary['target-type'])
+                added.append(dictionary['target-type'])
+        
+        self.__target_types__ = ts
     
     def export(self, exporttype: str = "csv") -> None:
         """General purpose Export. Excludes timestamp.
@@ -258,9 +268,9 @@ class targets:
         self.DataFrame = pd.DataFrame(self.data).drop('timestamp', axis=1)
         
         if exporttype == 'csv':
-            self.DataFrame.to_csv(datetime.now()+"-passman-passwords.csv", index = False, header = False)
+            self.DataFrame.to_csv(datetime.now()+"-pastaman-passwords.csv", index = False, header = False)
         elif exporttype == 'xlsx':
-            self.DataFrame.to_excel(datetime.now()+"-passman-passwords.xlsx", index=False, header=False)
+            self.DataFrame.to_excel(datetime.now()+"-pastaman-passwords.xlsx", index=False, header=False)
     
     # def import(self, )
         
