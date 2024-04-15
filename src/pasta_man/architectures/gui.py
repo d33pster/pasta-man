@@ -3,7 +3,7 @@
 #
 
 # import project specific modules
-from pasta_man.targets import targets
+from pasta_man.architectures.targets import targets
 from pasta_man.encryption import Encryption
 from pasta_man.utilities.pasta_menu import __menu__
 
