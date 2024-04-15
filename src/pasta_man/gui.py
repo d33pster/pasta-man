@@ -89,6 +89,11 @@ class pmanager:
         else:
             thememenu.add_command(label='Equilux', command=self.changeThemeToEquilux)
         
+        if defaultTheme=='keramik':
+            thememenu.add_command(label='Keramik - Default', command=self.changeThemeToKeramik)
+        else:
+            thememenu.add_command(label='Keramik', command=self.changeThemeToKeramik)
+        
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
@@ -99,6 +104,10 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'w') as themefile:
             themefile.write(theme)
         sys.exit(0)
+    
+    def changeThemeToKeramik(self):
+        self.style.theme_use('keramik')
+        threading.Thread(target=self.savetheme, args=('keramik',)).start()
     
     def changeThemeToEquilux(self):
         self.style.theme_use('equilux')
