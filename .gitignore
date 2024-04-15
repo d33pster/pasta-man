@@ -1,3 +1,5 @@
 .DS_Store
 src/.DS_Store
-src/pasta-man/__pycache__
+src/pasta_man/__pycache__
+src/pasta_man.egg*/
+build/
