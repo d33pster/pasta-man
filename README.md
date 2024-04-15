@@ -48,6 +48,25 @@ Themes can be changed using the MenuBar -
 
 <img src="images/MenuBar.png">
 
+#### Currently Supported Themes
+
+- Adapta
+- Arc
+- Aquativo
+- Black
+- Blue
+- Breeze
+- Clearlooks
+- Elegance
+- Equilux
+- Keramic
+- Kroc
+- Plastik
+- Radiance (Ubuntu)
+- Smog
+- Win XP
+- Yaru
+
 ## Dependencies
 - Python>=3.9
 - pandas
@@ -63,7 +82,7 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man
+pip install pasta-man==1.0.3
 ```
 
 ## Usage
