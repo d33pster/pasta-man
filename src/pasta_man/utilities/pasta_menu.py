@@ -9,17 +9,19 @@ import ttkthemes
 import threading
 import sys
 
+import ttkthemes.themed_style
+
 class __menu__:
     def __init__(self, menuparent: Menu):
         self.parent = menuparent
         
         # set style -> theme -> default: arc
         if not there(jPath(str(Path.home()), '.pastaman', '.defaulttheme')):
-            self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
+            self.style:ttkthemes.themed_style.ThemedStyle = ttkthemes.themed_style.ThemedStyle(theme='arc')
         else:
             with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'r') as theme:
                 self.defaultTheme = theme.read().replace('\n', '')
-                self.style = ttkthemes.themed_style.ThemedStyle(theme=self.defaultTheme)
+                self.style:ttkthemes.themed_style.ThemedStyle = ttkthemes.themed_style.ThemedStyle(theme=self.defaultTheme)
     
     def Themes(self):
         ThemeMenu = Menu(self.parent)
@@ -75,7 +77,18 @@ class __menu__:
         def changeThemeToAdapta():
             self.style.theme_use('adapta')
             threading.Thread(target=savetheme, args=('adapta',)).start()
-
+        
+        def changeThemeToPlastik():
+            self.style.theme_use('plastik')
+            threading.Thread(target=savetheme, args=('plastik',)).start()
+        
+        def changeThemeToRadiance():
+            self.style.theme_use('radiance')
+            threading.Thread(target=savetheme, args=('radiance',)).start()
+        
+        def changeThemeToSmog():
+            self.style.theme_use('smog')
+            threading.Thread(target=savetheme, args=('smog',)).start()
         
         # ---> themes menu
         if self.defaultTheme=='adapta':
@@ -132,3 +145,18 @@ class __menu__:
             ThemeMenu.add_command(label='Kroc - Default', command=changeThemeToKroc)
         else:
             ThemeMenu.add_command(label='Kroc', command=changeThemeToKroc)
+        
+        if self.defaultTheme=='plastik':
+            ThemeMenu.add_command(label='Plastik - Default', command=changeThemeToPlastik)
+        else:
+            ThemeMenu.add_command(label='Plastik', command=changeThemeToPlastik)
+        
+        if self.defaultTheme=='radiance':
+            ThemeMenu.add_command(label='Radiance (Ubuntu) - Default', command=changeThemeToRadiance)
+        else:
+            ThemeMenu.add_command(label='Radiance (Ubuntu)', command=changeThemeToRadiance)
+        
+        if self.defaultTheme=='smog':
+            ThemeMenu.add_command(label='Smog - Default', command=changeThemeToSmog)
+        else:
+            ThemeMenu.add_command(label='Smog', command=changeThemeToSmog)
