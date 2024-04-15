@@ -8,6 +8,7 @@ from targets import targets
 # import libs
 from tkinter import *
 from tkinter import ttk
+import pyperclip
 import threading
 
 class pmanager:
@@ -48,9 +49,9 @@ class pmanager:
         self.FEF = ttk.Frame(self.gettab)
         self.FEF.pack(fill=BOTH, expand=True)
         
-        # -> find targets and fetch it later
-        t1 = threading.Thread(target=self.arch.targets)
-        t1.start()
+        # # -> find targets and fetch it later
+        # t1 = threading.Thread(target=self.arch.targets)
+        # t1.start()
         
         # -> create search Entry and label
         self.searchLabel = ttk.Label(self.FEF, text='Search:', font=('Verdana', 14))
@@ -58,27 +59,89 @@ class pmanager:
         
         # ---> Entry
         self.varsearch = StringVar()
+        self.varsearch.set('hint: search keywords')
         self.searchEntry = ttk.Entry(self.FEF, textvariable=self.varsearch, width=24)
         self.searchEntry.place(anchor='center', relx=0.295, rely=0.3)
         
         # -> create search button
-        self.searchbutton = ttk.Button(self.FEF, text='[ Search ]', default=ACTIVE, command=self.search)
+        self.searchbutton_var = StringVar()
+        self.searchbutton_var.set('[ Search ]')
+        self.searchbutton = ttk.Button(self.FEF, text='[ Search ]', default=ACTIVE, command=self.search, textvariable=self.searchbutton_var)
         self.searchbutton.place(anchor='center', relx=0.5, rely=0.65)
         
         # -> create target type label
-        self.tarLabel = ttk.Label(self.FEF, text='Target Type:', font=('Verdana', 14))
+        self.tarLabel = ttk.Label(self.FEF, text='Type:', font=('Verdana', 14))
         self.tarLabel.place(anchor='center', relx=0.67,rely=0.16)
         
         # -> create dropdown menu.
         # ----> create a var for option
         self.varoption = StringVar()
-        t1.join()
-        self.targtypelist = ttk.OptionMenu(self.FEF, self.varoption, *self.arch.__target_types__)
+        # t1.join()
+        self.targtypelist = ttk.OptionMenu(self.FEF, self.varoption, *['target', 'target-type', 'username'])
         self.targtypelist.place(anchor='center', relx=0.75, rely=0.3, relwidth=0.35)
+        
+        # -> create a status label
+        self.fetchstatusvar = StringVar()
+        self.fetchstatus = ttk.Label(self.FEF, textvariable=self.fetchstatusvar)
+        self.fetchstatus.place(anchor='center', relx=0.5, rely=0.79)
     
     def search(self):
-        pass
+        # -> fetch value and search:
+        t1 = threading.Thread(target=self.arch.search, args=(self.varsearch.get(), self.varoption.get()))
+        t1.start()
+        t1.join()
         
+        if self.arch.__searchresult__!=None:
+            self.fetchstatusvar.set('Match Found!')
+            self.fetchstatus.after(5000, self.updatefetch)
+        else:
+            self.fetchstatusvar.set('No Match!')
+            self.fetchstatus.after(4000, self.fetchstatusReset)
+    
+    def updatefetch(self):
+        # -> forget fetch status
+        self.fetchstatus.place_forget()
+        self.fetchstatus.place(anchor='center', relx=0.5, rely=0.5)
+        # -> rename search button and forget it
+        # self.searchbutton_var.set('[ Re-Search ]')
+        self.searchbutton.place_forget()
+        # self.searchbutton.place(anchor='center')
+        
+        # -> create 3 buttons => copy to clipboard, Remove, Re-search
+        self.copyToClipboardButton = ttk.Button(self.FEF, text='[ Copy To Clipboard ]', default=ACTIVE, command=self.copyToClipboard)
+        self.removeButton = ttk.Button(self.FEF, text='[ Remove ]', command=self.remove)
+        self.researchButton = ttk.Button(self.FEF, text='[ Re-Search ]', command=self.research)
+        
+        self.copyToClipboardButton.place(anchor='center', relx=0.24, rely=0.62)
+        self.removeButton.place(anchor='center', relx=0.54, rely=0.62)
+        self.researchButton.place(anchor='center', relx=0.8, rely=0.62)
+    
+    def research(self):
+        # reinit the _makeFetch_ to refresh newly added Entries
+        for widget in self.gettab.winfo_children():
+            widget.destroy()
+        
+        self._makeFetch_()
+    
+    def remove(self):
+        dump = self.arch.data.pop(self.arch.data.index(self.arch.__searchresult__))
+        dump = None
+        
+        # reinit the _makeFetch_ to refresh newly added Entries
+        for widget in self.gettab.winfo_children():
+            widget.destroy()
+        
+        self._makeFetch_()
+    
+    def copyToClipboard(self):
+    
+        t = threading.Thread(target=self.arch.decrypt, args=(self.arch.__searchresult__['password'],))
+        t.start()
+        t.join()
+        
+        pyperclip.copy(self.arch._dec_)
+        spam = pyperclip.paste()
+        self.arch._dec_ = None
         
     def _makeAdd_(self):
         # -> create enclosing frame under Add
@@ -131,6 +194,9 @@ class pmanager:
         
         # -> bind pass entry with enter
         self.passEntry.bind('<Return>', self.add)
+    
+    def fetchstatusReset(self):
+        self.fetchstatusvar.set('')
     
     def add(self, event = None):
         # create thread for add

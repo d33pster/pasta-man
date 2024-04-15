@@ -4,14 +4,14 @@
 __version__ = "1.0"
 
 # import project specific modules
-from _class import pmanager
+from gui import pmanager
 from encryption import Encryption
 from exceptions import NoneTypeVariable, OptError
 from helptext import helptext
 
 # import libs
 from tkinter import *
-from tkinter import ttk, simpledialog
+from tkinter import simpledialog
 from termcolor import colored
 from pathlib import Path
 from os.path import join as jPath, exists as there
