@@ -16,6 +16,7 @@ from os.path import join as jPath, exists as there
 from datetime import datetime
 # from tabulate import tabulate
 import pandas as pd
+from re import match
 
 #
 # The format to save the persistent passwords file ==>
@@ -223,26 +224,23 @@ class targets:
         
         return counts
     
-    def search(self, searchkeyword: str, keywordtype: str = "target") -> dict | None:
+    def search(self, searchkeyword: str, keywordtype: str = "target"):
         """search an entry by these keywordtypes -> ['target', 'target-type', 'username']
 
         Args:
             searchkeyword (str): _description_
             keywordtype (str, optional): _description_. Defaults to "target".
-
-        Returns:
-            dict | None: _description_
         """
         valid = ['target', 'target-type', 'username']
         
         if keywordtype not in valid:
             raise InvalidKeyword(f'{keywordtype} cannot be set as keywordtype.')
         
+        self.__searchresult__ = None
+        
         for dictionary in self.data:
             if searchkeyword in dictionary[keywordtype]:
-                return dictionary
-        
-        return None
+                self.__searchresult__ = dictionary
 
     def targets(self):
         ts:list[str] = []
@@ -253,6 +251,9 @@ class targets:
                 added.append(dictionary['target-type'])
         
         self.__target_types__ = ts
+    
+    def decrypt(self, password: bytes):
+        self._dec_ = self.fernet.decrypt(password).decode('ascii')
     
     def export(self, exporttype: str = "csv") -> None:
         """General purpose Export. Excludes timestamp.
