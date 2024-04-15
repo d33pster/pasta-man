@@ -4,7 +4,7 @@
 __version__ = "1.0"
 
 # import project specific modules
-from pasta_man.gui import pmanager
+from pasta_man.architectures.gui import pmanager
 from pasta_man.encryption import Encryption
 from pasta_man.exceptions import NoneTypeVariable, OptError
 from pasta_man.utilities.helptext import helptext
@@ -108,7 +108,7 @@ if __name__=="__main__":
     encb:bytes = ''.encode('ascii')
     dencb:bytes = ''.encode('ascii')
     try:
-        main()
+        sys.exit(main())
     except KeyboardInterrupt:
         print("\n"+colored("KEYBOARD INTERRUPT", 'red'))
         sys.exit(1)
