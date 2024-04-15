@@ -18,17 +18,40 @@ import ttkthemes.themed_style
 
 class pmanager:
     def __init__(self, master:Tk, masterpassword: bytes):
+        # create a master object
         self.parent = master
+        # set title
         self.parent.title('Pasta-Man')
+        # set geometry
         self.parent.geometry('530x300+400+280')
+        # set architecture
         self.arch = targets(masterpassword)
+        # set style -> theme
         self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
+        
+        # set menu
+        menu = Menu(self.parent)
+        self.parent.config(menu=menu)
+        # -> add menus
+        # --> add Themes menu
+        thememenu = Menu(menu)
+        menu.add_cascade(label='Theme', menu=thememenu)
+        
+        # ---> themes menu
+        thememenu.add_command(label='Adapta', command=self.changeThemeToAdapta)
+        thememenu.add_command(label='Arc - Default', command=self.changeThemeToArc)
         
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
         
         self.initthread = threading.Thread(target=self.arch.init).start()
+    
+    def changeThemeToArc(self):
+        self.style.theme_use('arc')
+    
+    def changeThemeToAdapta(self):
+        self.style.theme_use('adapta')
     
     def _makeinitscreen_(self):
         # create two notebooks
@@ -62,9 +85,21 @@ class pmanager:
         
         # -> Create gif frames OR LABEL
         self.homelabel = Label(self.HEF, text="Pasta-Man is your very own Password Manager\nWith tripple layer security and the all new search.", font=('Verdana', 18))
-        self.homelabel.place(anchor='center', relx=0.5, rely=0.5)
+        self.homelabel.place(anchor='center', relx=0.5, rely=0.35)
         
         self.homelabel.config(bg='black', fg='white')
+        
+        # -> create a button
+        self.homeNextLabel = Label(self.HEF, text="Next >", bg='black', fg='white', font=('Verdana', 15))
+        self.homeNextLabel.place(anchor='center', relx=0.5, rely=0.67)
+        
+        # -> bind command
+        self.homeNextLabel.bind('<Button-1>', lambda e: self.homenext())
+    
+    def homenext(self):
+        self.notebook.select(1)
+        # -> set focus to targetEntry
+        self.targetEntry.focus()
     
     def _makeFetch_(self):
         # -> create eclosing frame under Fetch
@@ -220,7 +255,7 @@ class pmanager:
         self.passLabel.place(anchor='center', relx=0.235, rely=0.52)
         # --> textvar for passEntry
         self.varpass = StringVar()
-        self.passEntry = ttk.Entry(self.AEF, width=25, show="!", textvariable=self.varpass)
+        self.passEntry = ttk.Entry(self.AEF, width=25, show="-", textvariable=self.varpass)
         self.passEntry.place(anchor='center', rely=0.52, relx=0.57)
         
         # -> create Add button
@@ -231,9 +266,6 @@ class pmanager:
         self.status = StringVar()
         self.statusbar = ttk.Label(self.AEF, textvariable=self.status)
         self.statusbar.place(anchor='center', relx=0.5, rely=0.88)
-
-        # -> set focus to targetEntry
-        self.targetEntry.focus()
         
         # -> bind pass entry with enter
         self.passEntry.bind('<Return>', self.add)
