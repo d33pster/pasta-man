@@ -10,4 +10,5 @@ updates:
     schedule:
       interval: "daily"
     commit-message:
+      prefix: "update"
       include: "scope"
