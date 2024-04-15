@@ -7,7 +7,7 @@ __version__ = "1.0"
 from pasta_man.gui import pmanager
 from pasta_man.encryption import Encryption
 from pasta_man.exceptions import NoneTypeVariable, OptError
-from pasta_man.helptext import helptext
+from pasta_man.utilities.helptext import helptext
 
 # import libs
 from tkinter import *
