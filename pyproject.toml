@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pasta-man"
-version = "1.0.3"
+version = "1.0.4"
 description = "Password Manager"
 requires-python = ">=3.9"
 classifiers = [
@@ -31,7 +31,8 @@ maintainers = [
 dependencies = ['cryptography', 'pandas', 'termcolor', 'tk', 'optioner>=1.5.2', 'pyperclip', 'ttkthemes']
 
 [project.scripts]
-pasta-man = "pasta_man.pasta_man:main"
+pasta-man-launcher = "pasta_man.self_launch_thread.Launch:drumroll"
+pasta-man = "pasta_man.self_launch_thread.Launcher:main"
 
 [project.urls]
 GitHub = 'https://github.com/d33pster/pasta-man'
