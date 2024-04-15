@@ -4,10 +4,13 @@
 
 # import project specific modules
 from pasta_man.targets import targets
+from pasta_man.encryption import Encryption
 
 # import libs
 from tkinter import *
-from tkinter import ttk
+from tkinter import ttk, simpledialog, messagebox
+from os.path import join as jPath
+from pathlib import Path
 import pyperclip
 import threading
 
@@ -133,15 +136,36 @@ class pmanager:
         
         self._makeFetch_()
     
-    def copyToClipboard(self):
+    def decryptthread(self, masterpassword: str):
+        denc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
+        denc.unlock()
+        self.den = denc.__unencryptedstring__
     
-        t = threading.Thread(target=self.arch.decrypt, args=(self.arch.__searchresult__['password'],))
-        t.start()
-        t.join()
+    def copyToClipboard(self):
         
-        pyperclip.copy(self.arch._dec_)
-        spam = pyperclip.paste()
-        self.arch._dec_ = None
+        # prepare alleged pass
+        allegedpass = simpledialog.askstring("Master Password", "Enter Master Password to copy password to clipboard: ")
+        
+        # get masterpass
+        with open(jPath(str(Path.home()), '.pastaman', '.m'), 'rb') as m:
+            masterpassword = m.read() # this is encrypted
+        
+        
+        t1 = threading.Thread(target=self.decryptthread, args=(masterpassword.decode('ascii'),))
+        t1.start()
+        t1.join()
+        
+        
+        if allegedpass == self.den.decode('ascii'):
+            t = threading.Thread(target=self.arch.decrypt, args=(self.arch.__searchresult__['password'],))
+            t.start()
+            t.join()
+            
+            pyperclip.copy(self.arch._dec_)
+            spam = pyperclip.paste()
+            self.arch._dec_ = None
+        else:
+            messagebox.showwarning("Wrong Master Password", "The master password entered by you is wrong!")
         
     def _makeAdd_(self):
         # -> create enclosing frame under Add
