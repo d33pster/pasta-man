@@ -90,6 +90,10 @@ class __menu__:
             self.style.theme_use('smog')
             threading.Thread(target=savetheme, args=('smog',)).start()
         
+        def changeThemeToWinXPBlue():
+            self.style.theme_use('winxpblue')
+            threading.Thread(target=savetheme, args=('winxpblue',)).start()
+        
         # ---> themes menu
         if self.defaultTheme=='adapta':
             ThemeMenu.add_command(label='Adapta - Default', command=changeThemeToAdapta)
@@ -160,3 +164,8 @@ class __menu__:
             ThemeMenu.add_command(label='Smog - Default', command=changeThemeToSmog)
         else:
             ThemeMenu.add_command(label='Smog', command=changeThemeToSmog)
+        
+        if self.defaultTheme=='winxpblue':
+            ThemeMenu.add_command(label='Win XP - Default', command=changeThemeToWinXPBlue)
+        else:
+            ThemeMenu.add_command(label='Win XP', command=changeThemeToWinXPBlue)
