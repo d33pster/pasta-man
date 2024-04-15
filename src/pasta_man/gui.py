@@ -8,11 +8,13 @@ from pasta_man.encryption import Encryption
 
 # import libs
 from tkinter import *
-from tkinter import ttk, simpledialog, messagebox
+from tkinter import ttk, simpledialog, messagebox, PhotoImage
 from os.path import join as jPath
 from pathlib import Path
 import pyperclip
 import threading
+import ttkthemes
+import ttkthemes.themed_style
 
 class pmanager:
     def __init__(self, master:Tk, masterpassword: bytes):
@@ -20,6 +22,7 @@ class pmanager:
         self.parent.title('Pasta-Man')
         self.parent.geometry('530x300+400+280')
         self.arch = targets(masterpassword)
+        self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
         
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
@@ -34,18 +37,34 @@ class pmanager:
         self.notebook.pack(expand=True, fill=BOTH)
         
         # -> create the tabs --> Add
+        self.hometab = Frame(self.notebook, bg='black')
         self.addtab = ttk.Frame(self.notebook)
         self.gettab = ttk.Frame(self.notebook)
         
         # -> add the tabs under notebook
+        self.notebook.add(self.hometab, text='Home')
         self.notebook.add(self.addtab, text='Add')
         self.notebook.add(self.gettab, text='Fetch')
+        
+        # -> invoke _makeHome)=_ to create Home screen
+        self._makeHome_()
         
         # -> invoke _makeAdd_ to create Add Screen
         self._makeAdd_()
         
         # -> invoke _makeFetch_ to create Fetch Screen
         self._makeFetch_()
+    
+    def _makeHome_(self):
+        # -> create Enclosing frame
+        self.HEF = Frame(self.hometab, bg='black')
+        self.HEF.pack(expand=True, fill=BOTH)
+        
+        # -> Create gif frames OR LABEL
+        self.homelabel = Label(self.HEF, text="Pasta-Man is your very own Password Manager\nWith tripple layer security and the all new search.", font=('Verdana', 18))
+        self.homelabel.place(anchor='center', relx=0.5, rely=0.5)
+        
+        self.homelabel.config(bg='black', fg='white')
     
     def _makeFetch_(self):
         # -> create eclosing frame under Fetch
