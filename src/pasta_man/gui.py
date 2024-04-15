@@ -5,18 +5,15 @@
 # import project specific modules
 from pasta_man.targets import targets
 from pasta_man.encryption import Encryption
-from pasta_man.pasta_menu import __menu__
+from pasta_man.utilities.pasta_menu import __menu__
 
 # import libs
 from tkinter import *
-from tkinter import ttk, simpledialog, messagebox, PhotoImage
-from os.path import join as jPath, exists as there
+from tkinter import ttk, simpledialog, messagebox
+from os.path import join as jPath
 from pathlib import Path
-import sys
 import pyperclip
 import threading
-import ttkthemes
-import ttkthemes.themed_style
 
 class pmanager:
     def __init__(self, master:Tk, masterpassword: bytes):
@@ -34,9 +31,6 @@ class pmanager:
         self.parent.config(menu=menu)
         # -> add menus
         self.pasta_menu = __menu__(menuparent=menu)
-        # --> add Themes menu
-        # thememenu = Menu(menu)
-        # menu.add_cascade(label='Theme', menu=thememenu)
         self.pasta_menu.Themes()
         
         # create Enclosing Frame
