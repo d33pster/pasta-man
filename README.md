@@ -39,7 +39,9 @@ If there is a target (say, abcde) which contains a keyword (say, abc), the user 
 Upon [Search](#search), `Pasta-Man` allows to copy the password for the found match to user's clipboard (given, the user provides the master password), instead of revealing it because of bad management. `Pasta-Man` also allows to Remove that match search result.
 
 ### Themes
-User can now change Theme for the app from the Menu Bar. Default is `Arc`.
+User can now change Theme for the app from the Menu Bar. Default is `Arc`. Whatever theme the user chooses, It will be set as default and next time `Pasta-Man` will open, that theme will be loaded.
+
+Themes can be changed using the MenuBar -
 
 <img src="images/MenuBar.png">
 
