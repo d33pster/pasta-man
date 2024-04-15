@@ -42,11 +42,6 @@ def checkmfile(home = str(Path.home())) -> bytes:
             raise NoneTypeVariable('Aborted.')
         # encode it
         masterpassword = masterpassword.encode('ascii')
-        # lock it -> store it
-        # -> define Encryption object
-        # enc = Encryption("pastaman".encode('ascii'), masterpassword)
-        # # -> lock it
-        # enc.lock()
         enct = threading.Thread(target=locker, args=(masterpassword.decode('ascii'),))
         enct.start()
         enct.join()
