@@ -94,6 +94,10 @@ class __menu__:
             self.style.theme_use('winxpblue')
             threading.Thread(target=savetheme, args=('winxpblue',)).start()
         
+        def changeThemeToYaru():
+            self.style.theme_use('yaru')
+            threading.Thread(target=savetheme, args=('yaru',)).start()
+        
         # ---> themes menu
         if self.defaultTheme=='adapta':
             ThemeMenu.add_command(label='Adapta - Default', command=changeThemeToAdapta)
@@ -169,3 +173,8 @@ class __menu__:
             ThemeMenu.add_command(label='Win XP - Default', command=changeThemeToWinXPBlue)
         else:
             ThemeMenu.add_command(label='Win XP', command=changeThemeToWinXPBlue)
+        
+        if self.defaultTheme=='yaru':
+            ThemeMenu.add_command(label='Yaru - Default', command=changeThemeToYaru)
+        else:
+            ThemeMenu.add_command(label='Yaru', command=changeThemeToYaru)
