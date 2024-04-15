@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pasta-man"
+version = "1.0"
+description = "Password Manager"
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 4 - beta",
+    "Topic :: Software Development",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ['d33pster', 'pasta-man', 'passman', 'pastaman', 'password-manager', 'password manager', 'password', 'manager']
+readme = {file = "README.md", content-type = "text/markdown"}
+license = { file = "LICENSE" }
+authors = [
+    {name = "Soumyo Deep Gupta", email = "deep.main.ac@gmail.com"},
+    {name = "Sairam Pimple", email = "sairampimple003@gmail.com"},
+    {name = "Shubham Narendra Singh", email = "shubh1122000@gmail.com"}
+]
+maintainers = [
+    {name = "Soumyo Deep Gupta", email = "deep.main.ac@gmail.com"}
+]
+dependencies = ['cryptography', 'pandas', 'termcolor', 'tk', 'optioner>=1.5.2', 'pyperclip']
+
+[project.scripts]
+pasta-man = "pasta_man.pasta_man:main"
+
+[project.urls]
+GitHub = 'https://github.com/d33pster/pasta-man'
+Issues = 'https://github.com/d33pster/pasta-man/issues'
+Documentation = 'https://d33pster.github.io/pasta-man/'
