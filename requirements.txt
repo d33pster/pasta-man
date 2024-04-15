@@ -1,6 +1,5 @@
 cryptography
 pandas
-tabulate
 termcolor
 tk
 optioner>=1.5.2
