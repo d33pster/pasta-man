@@ -84,6 +84,11 @@ class pmanager:
         else:
             thememenu.add_command(label='Elegance', command=self.changeThemeToElegance)
         
+        if defaultTheme=='equilux':
+            thememenu.add_command(label='Equilux - Default', command=self.changeThemeToEquilux)
+        else:
+            thememenu.add_command(label='Equilux', command=self.changeThemeToEquilux)
+        
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
@@ -94,6 +99,10 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'w') as themefile:
             themefile.write(theme)
         sys.exit(0)
+    
+    def changeThemeToEquilux(self):
+        self.style.theme_use('equilux')
+        threading.Thread(target=self.savetheme, args=('equilix',)).start()
     
     def changeThemeToElegance(self):
         self.style.theme_use('elegance')
