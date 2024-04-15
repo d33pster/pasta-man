@@ -38,10 +38,40 @@ If there is a target (say, abcde) which contains a keyword (say, abc), the user 
 ### Copy to Clipboard
 Upon [Search](#search), `Pasta-Man` allows to copy the password for the found match to user's clipboard (given, the user provides the master password), instead of revealing it because of bad management. `Pasta-Man` also allows to Remove that match search result.
 
+### Faster than basic tkinter apps
+`Pasta-Man` actively uses Threads to carry out intensive tasks in order to minimize GUI lag as well as have better performance than any basic app created through python tkinter lib.
+
+### Themes
+User can now change Theme for the app from the Menu Bar. Default is `Arc`. Whatever theme the user chooses, It will be set as default and next time `Pasta-Man` is launched, that theme will be loaded.
+
+Themes can be changed using the MenuBar -
+
+<img src="images/MenuBar.png">
+
+#### Currently Supported Themes
+
+- Adapta
+- Arc
+- Aquativo
+- Black
+- Blue
+- Breeze
+- Clearlooks
+- Elegance
+- Equilux
+- Keramic
+- Kroc
+- Plastik
+- Radiance (Ubuntu)
+- Smog
+- Win XP
+- Yaru
+
 ## Dependencies
 - Python>=3.9
 - pandas
 - tk
+- ttkthemes
 - termcolor
 - pyperclip
 - optioner>=1.5.2
@@ -52,7 +82,7 @@ Upon [Search](#search), `Pasta-Man` allows to copy the password for the found ma
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man
+pip install pasta-man==1.0.3
 ```
 
 ## Usage

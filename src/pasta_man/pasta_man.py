@@ -7,7 +7,7 @@ __version__ = "1.0"
 from pasta_man.gui import pmanager
 from pasta_man.encryption import Encryption
 from pasta_man.exceptions import NoneTypeVariable, OptError
-from pasta_man.helptext import helptext
+from pasta_man.utilities.helptext import helptext
 
 # import libs
 from tkinter import *
@@ -42,11 +42,6 @@ def checkmfile(home = str(Path.home())) -> bytes:
             raise NoneTypeVariable('Aborted.')
         # encode it
         masterpassword = masterpassword.encode('ascii')
-        # lock it -> store it
-        # -> define Encryption object
-        # enc = Encryption("pastaman".encode('ascii'), masterpassword)
-        # # -> lock it
-        # enc.lock()
         enct = threading.Thread(target=locker, args=(masterpassword.decode('ascii'),))
         enct.start()
         enct.join()

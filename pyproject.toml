@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pasta-man"
-version = "1.0.2"
+version = "1.0.3"
 description = "Password Manager"
 requires-python = ">=3.9"
 classifiers = [
@@ -28,7 +28,7 @@ authors = [
 maintainers = [
     {name = "Soumyo Deep Gupta", email = "deep.main.ac@gmail.com"}
 ]
-dependencies = ['cryptography', 'pandas', 'termcolor', 'tk', 'optioner>=1.5.2', 'pyperclip']
+dependencies = ['cryptography', 'pandas', 'termcolor', 'tk', 'optioner>=1.5.2', 'pyperclip', 'ttkthemes']
 
 [project.scripts]
 pasta-man = "pasta_man.pasta_man:main"
