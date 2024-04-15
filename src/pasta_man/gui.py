@@ -3,7 +3,7 @@
 #
 
 # import project specific modules
-from targets import targets
+from pasta_man.targets import targets
 
 # import libs
 from tkinter import *

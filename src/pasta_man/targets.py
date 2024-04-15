@@ -3,7 +3,7 @@
 #
 
 # import project specific modules.
-from exceptions import InvalidKeyword, InvalidExportType
+from pasta_man.exceptions import InvalidKeyword, InvalidExportType
 
 # import other arguments
 from cryptography.fernet import Fernet

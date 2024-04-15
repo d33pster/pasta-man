@@ -4,10 +4,10 @@
 __version__ = "1.0"
 
 # import project specific modules
-from gui import pmanager
-from encryption import Encryption
-from exceptions import NoneTypeVariable, OptError
-from helptext import helptext
+from pasta_man.gui import pmanager
+from pasta_man.encryption import Encryption
+from pasta_man.exceptions import NoneTypeVariable, OptError
+from pasta_man.helptext import helptext
 
 # import libs
 from tkinter import *
