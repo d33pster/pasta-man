@@ -9,8 +9,9 @@ from pasta_man.encryption import Encryption
 # import libs
 from tkinter import *
 from tkinter import ttk, simpledialog, messagebox, PhotoImage
-from os.path import join as jPath
+from os.path import join as jPath, exists as there
 from pathlib import Path
+import sys
 import pyperclip
 import threading
 import ttkthemes
@@ -27,7 +28,11 @@ class pmanager:
         # set architecture
         self.arch = targets(masterpassword)
         # set style -> theme
-        self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
+        if not there(jPath(str(Path.home()), '.pastaman', '.defaulttheme')):
+            self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
+        else:
+            with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'r') as theme:
+                self.style = ttkthemes.themed_style.ThemedStyle(theme=theme.read().replace('\n', ''))
         
         # set menu
         menu = Menu(self.parent)
@@ -52,26 +57,38 @@ class pmanager:
         
         self.initthread = threading.Thread(target=self.arch.init).start()
     
+    def savetheme(self, theme:str):
+        with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'w') as themefile:
+            themefile.write(theme)
+        sys.exit(0)
+    
     def changeThemeToClearlooks(self):
         self.style.theme_use('clearlooks')
+        threading.Thread(target=self.savetheme, args=('clearlooks',)).start()
     
     def changeThemeToBreeze(self):
         self.style.theme_use('breeze')
+        threading.Thread(target=self.savetheme, args=('breeze',)).start()
     
     def changeThemeToBlue(self):
         self.style.theme_use('blue')
+        threading.Thread(target=self.savetheme, args=('blue',)).start()
     
     def changeThemeToBlack(self):
         self.style.theme_use('black')
+        threading.Thread(target=self.savetheme, args=('black',)).start()
     
     def changeThemeToAquativo(self):
         self.style.theme_use('aquativo')
+        threading.Thread(target=self.savetheme, args=('aquativo',)).start()
     
     def changeThemeToArc(self):
         self.style.theme_use('arc')
+        threading.Thread(target=self.savetheme, args=('arc',)).start()
     
     def changeThemeToAdapta(self):
         self.style.theme_use('adapta')
+        threading.Thread(target=self.savetheme, args=('adapta',)).start()
     
     def _makeinitscreen_(self):
         # create two notebooks
