@@ -32,7 +32,8 @@ class pmanager:
             self.style = ttkthemes.themed_style.ThemedStyle(theme='arc')
         else:
             with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'r') as theme:
-                self.style = ttkthemes.themed_style.ThemedStyle(theme=theme.read().replace('\n', ''))
+                defaultTheme = theme.read().replace('\n', '')
+                self.style = ttkthemes.themed_style.ThemedStyle(theme=defaultTheme)
         
         # set menu
         menu = Menu(self.parent)
@@ -43,13 +44,40 @@ class pmanager:
         menu.add_cascade(label='Theme', menu=thememenu)
         
         # ---> themes menu
-        thememenu.add_command(label='Adapta', command=self.changeThemeToAdapta)
-        thememenu.add_command(label='Arc - Default', command=self.changeThemeToArc)
-        thememenu.add_command(label='Aquativo', command=self.changeThemeToAquativo)
-        thememenu.add_command(label='Black', command=self.changeThemeToBlack)
-        thememenu.add_command(label='Blue', command=self.changeThemeToBlue)
-        thememenu.add_command(label='Breeze', command=self.changeThemeToBreeze)
-        thememenu.add_command(label='Clearlooks', command=self.changeThemeToClearlooks)
+        if defaultTheme=='adapta':
+            thememenu.add_command(label='Adapta - Default', command=self.changeThemeToAdapta)
+        else:
+            thememenu.add_command(label='Adapta', command=self.changeThemeToAdapta)
+
+        if defaultTheme=='arc':
+            thememenu.add_command(label='Arc - Default', command=self.changeThemeToArc)
+        else:
+            thememenu.add_command(label='Arc', command=self.changeThemeToArc)
+        
+        if defaultTheme=='aquativo':
+            thememenu.add_command(label='Aquativo - Default', command=self.changeThemeToAquativo)
+        else:
+            thememenu.add_command(label='Aquativo', command=self.changeThemeToAquativo)
+        
+        if defaultTheme=='black':
+            thememenu.add_command(label='Black - Default', command=self.changeThemeToBlack)
+        else:
+            thememenu.add_command(label='Black', command=self.changeThemeToBlack)
+        
+        if defaultTheme=='blue':
+            thememenu.add_command(label='Blue - Default', command=self.changeThemeToBlue)
+        else:
+            thememenu.add_command(label='Blue', command=self.changeThemeToBlue)
+        
+        if defaultTheme=='breeze':
+            thememenu.add_command(label='Breeze - Default', command=self.changeThemeToBreeze)
+        else:
+            thememenu.add_command(label='Breeze', command=self.changeThemeToBreeze)
+        
+        if defaultTheme=='clearlooks':
+            thememenu.add_command(label='Clearlooks - Default', command=self.changeThemeToClearlooks)
+        else:
+            thememenu.add_command(label='Clearlooks', command=self.changeThemeToClearlooks)
         
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
