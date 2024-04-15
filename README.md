@@ -38,10 +38,16 @@ If there is a target (say, abcde) which contains a keyword (say, abc), the user 
 ### Copy to Clipboard
 Upon [Search](#search), `Pasta-Man` allows to copy the password for the found match to user's clipboard (given, the user provides the master password), instead of revealing it because of bad management. `Pasta-Man` also allows to Remove that match search result.
 
+### Themes
+User can now change Theme for the app from the Menu Bar. Default is `Arc`.
+
+<img src="images/MenuBar.png">
+
 ## Dependencies
 - Python>=3.9
 - pandas
 - tk
+- ttkthemes
 - termcolor
 - pyperclip
 - optioner>=1.5.2
