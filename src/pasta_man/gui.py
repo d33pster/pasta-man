@@ -40,12 +40,17 @@ class pmanager:
         # ---> themes menu
         thememenu.add_command(label='Adapta', command=self.changeThemeToAdapta)
         thememenu.add_command(label='Arc - Default', command=self.changeThemeToArc)
+        thememenu.add_command(label='Aquativo', command=self.changeThemeToAquativo)
+        thememenu.add_command(label='Black', command=self.changeThemeToBlack)
         
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
         
         self.initthread = threading.Thread(target=self.arch.init).start()
+    
+    def changeThemeToAquativo(self):
+        self.style.theme_use('aquativo')
     
     def changeThemeToArc(self):
         self.style.theme_use('arc')
