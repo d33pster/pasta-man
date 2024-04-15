@@ -94,6 +94,11 @@ class pmanager:
         else:
             thememenu.add_command(label='Keramik', command=self.changeThemeToKeramik)
         
+        if defaultTheme=='kroc':
+            thememenu.add_command(label='Kroc - Default', command=self.changeThemeToKroc)
+        else:
+            thememenu.add_command(label='Kroc', command=self.changeThemeToKroc)
+        
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
@@ -104,6 +109,10 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'w') as themefile:
             themefile.write(theme)
         sys.exit(0)
+    
+    def changeThemeToKroc(self):
+        self.style.theme_use('kroc')
+        threading.Thread(target=self.savetheme, args=('kroc',)).start()
     
     def changeThemeToKeramik(self):
         self.style.theme_use('keramik')
