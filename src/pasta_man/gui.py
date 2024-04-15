@@ -42,12 +42,16 @@ class pmanager:
         thememenu.add_command(label='Arc - Default', command=self.changeThemeToArc)
         thememenu.add_command(label='Aquativo', command=self.changeThemeToAquativo)
         thememenu.add_command(label='Black', command=self.changeThemeToBlack)
+        thememenu.add_command(label='Blue', command=self.changeThemeToBlue)
         
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
         
         self.initthread = threading.Thread(target=self.arch.init).start()
+    
+    def changeThemeToBlue(self):
+        self.style.theme_use('blue')
     
     def changeThemeToBlack(self):
         self.style.theme_use('black')
