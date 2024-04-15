@@ -49,6 +49,9 @@ class pmanager:
         
         self.initthread = threading.Thread(target=self.arch.init).start()
     
+    def changeThemeToBlack(self):
+        self.style.theme_use('black')
+    
     def changeThemeToAquativo(self):
         self.style.theme_use('aquativo')
     
