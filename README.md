@@ -48,6 +48,8 @@ Themes can be changed using the MenuBar -
 
 <img src="images/MenuBar.png">
 
+###### <p align='center'>MenuBar Screenshot<p>
+
 #### Currently Supported Themes
 
 - Adapta
@@ -82,8 +84,28 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.3
+pip install pasta-man==1.0.4
 ```
+
+## README before [#Usage](#usage)
+
+After update _v1.0.4_, `pasta-man` launches as a separate process. There are two commands that gets installed with `pip install pasta-man==1.0.4` -> `pasta-man` and `pasta-man-launcher`.
+
+- `pasta-man` Command
+
+    - This command will launch `pasta-man` as a separate and independent process.
+    
+    - The terminal will be usable after `pasta-man` command is run.
+    
+    - The output logs will be stored in -> `HOME/.pastaman/.log` in Linux and MacOS.
+
+- `pasta-man-launcher` Command
+    
+    - This will launch `pasta-man` in the terminal.
+
+    - The terminal wont be available until this process is running.
+
+    - All outputs will be logged in `stdin` (in the terminal screen)
 
 ## Usage
 
