@@ -79,6 +79,11 @@ class pmanager:
         else:
             thememenu.add_command(label='Clearlooks', command=self.changeThemeToClearlooks)
         
+        if defaultTheme=='elegance':
+            thememenu.add_command(label='Elegance - Default', command=self.changeThemeToElegance)
+        else:
+            thememenu.add_command(label='Elegance', command=self.changeThemeToElegance)
+        
         # create Enclosing Frame
         self.EF = ttk.Frame(self.parent)
         self.EF.pack(fill=BOTH, expand=True)
@@ -89,6 +94,10 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.defaulttheme'), 'w') as themefile:
             themefile.write(theme)
         sys.exit(0)
+    
+    def changeThemeToElegance(self):
+        self.style.theme_use('elegance')
+        threading.Thread(target=self.savetheme, args=('elegance',)).start()
     
     def changeThemeToClearlooks(self):
         self.style.theme_use('clearlooks')
