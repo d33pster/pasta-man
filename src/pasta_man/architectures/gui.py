@@ -3,6 +3,7 @@
 #
 
 # import project specific modules
+import sys
 from pasta_man.architectures.targets import targets
 from pasta_man.encryption import Encryption
 from pasta_man.utilities.pasta_menu import __menu__
@@ -176,10 +177,6 @@ class pmanager:
         
         self._makeFetch_()
     
-    def decryptthread(self, masterpassword: str):
-        denc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
-        denc.unlock()
-        self.den = denc.__unencryptedstring__
     
     def copyToClipboard(self):
         
@@ -190,8 +187,14 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.m'), 'rb') as m:
             masterpassword = m.read() # this is encrypted
         
+        def decryptthread(masterpassword: str):
+            denc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
+            denc.unlock()
+            self.den = denc.__unencryptedstring__
+            sys.exit(0)
         
-        t1 = threading.Thread(target=self.decryptthread, args=(masterpassword.decode('ascii'),))
+        
+        t1 = threading.Thread(target=decryptthread, args=(masterpassword.decode('ascii'),))
         t1.start()
         t1.join()
         

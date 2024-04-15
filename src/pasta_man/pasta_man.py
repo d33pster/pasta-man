@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # version info
-__version__ = "1.0"
+__version__ = "1.0.4"
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
@@ -25,12 +25,14 @@ def locker(masterpassword: str):
     enc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
     enc.lock()
     encb = enc.__encryptedstring__
+    sys.exit(0)
 
 def unlocker(encpassword: str):
     global dencb
     denc = Encryption("pastaman".encode("ascii"), encpassword.encode('ascii'))
     denc.unlock()
     dencb = denc.__unencryptedstring__
+    sys.exit(0)
 
 def checkmfile(home = str(Path.home())) -> bytes:
     # --> find out if master password is defined -> .m file

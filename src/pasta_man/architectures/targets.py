@@ -16,6 +16,7 @@ from os.path import join as jPath, exists as there
 from datetime import datetime
 # from tabulate import tabulate
 import pandas as pd
+import sys
 from re import match
 
 #
@@ -104,6 +105,8 @@ class targets:
             
             content = None
         
+        sys.exit(0)
+        
     
     def add(self, target:str, targettype: str, username: str, password:bytes):
         """Add data in collection.
@@ -160,6 +163,8 @@ class targets:
             pfile.write(newcontent)
         
         newcontent = None
+        
+        sys.exit(0)
     
     def remove(self, target:str, username: str):
         """remove an entry from the collection of all entries.
@@ -241,6 +246,8 @@ class targets:
         for dictionary in self.data:
             if searchkeyword in dictionary[keywordtype]:
                 self.__searchresult__ = dictionary
+        
+        sys.exit(0)
 
     def targets(self):
         ts:list[str] = []
@@ -254,6 +261,7 @@ class targets:
     
     def decrypt(self, password: bytes):
         self._dec_ = self.fernet.decrypt(password).decode('ascii')
+        sys.exit(0)
     
     def export(self, exporttype: str = "csv") -> None:
         """General purpose Export. Excludes timestamp.
