@@ -1,3 +1,9 @@
+![PyPI - Version](https://img.shields.io/pypi/v/pasta-man)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pasta-man)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/pasta-man)
+![PyPI - License](https://img.shields.io/pypi/l/pasta-man)
+
+
 # Overview
 Pasta-Man is a software application designed to securely store passwords and sensitive information in an encrypted format. It provides users with a convenient way to manage their passwords, ensuring they are protected from unauthorized access. 
 
@@ -33,7 +39,7 @@ If there is a target (say, abcde) which contains a keyword (say, abc), the user 
 Upon [Search](#search), `Pasta-Man` allows to copy the password for the found match to user's clipboard (given, the user provides the master password), instead of revealing it because of bad management. `Pasta-Man` also allows to Remove that match search result.
 
 ## Dependencies
-- Python >= v3.9+
+- Python>=3.9
 - pandas
 - tk
 - termcolor
