@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # version info
-__version__ = "1.0.7"
+__version__ = "1.0.8"
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
@@ -14,9 +14,10 @@ from tkinter import *
 from tkinter import simpledialog
 from termcolor import colored
 from pathlib import Path
-from os.path import join as jPath, exists as there
+from os.path import join as jPath, exists as there, abspath
 from os import makedirs
 from optioner import options
+from shutil import rmtree
 import sys
 import threading
 
@@ -73,10 +74,15 @@ def main():
     global encb, dencb
     
     # define arguments
-    shortargs = ['h', 'v']
-    longargs = ['help', 'version']
+    shortargs = ['h', 'v', 'p', 'rmc']
+    longargs = ['help', 'version', 'path', 'remove-configurations']
     
-    optctrl = options(shortargs, longargs, sys.argv[1:], ifthisthennotthat=[['help', 'h'],['v', 'version']])
+    optctrl = options(shortargs, longargs, sys.argv[1:], ifthisthennotthat=[
+        ['help', 'h'],['v', 'version', 'p', 'path', 'rmc', 'remove-configurations'],
+        ['v', 'version'], ['h','help', 'p', 'path', 'rmc', 'remove-configurations'],
+        ['p', 'path'], ['v','version', 'h', 'help', 'rmc', 'remove-configurations'],
+        ['rmc', 'remove-configurations'], ['p', 'path', 'v', 'version', 'h', 'help']
+    ])
     args, check, error, falseargs = optctrl._argparse()
     
     if not check:
@@ -88,6 +94,12 @@ def main():
             h.showver()
         elif '-h' in args or '--help' in args:
             h.helper()
+        elif '-p' in args or '--path' in args:
+            print(abspath(__file__))
+            sys.exit(0)
+        elif '-rmc' in args or '--remove-configurations' in args:
+            rmtree(jPath(str(Path.home()), '.pastaman'))
+            sys.exit(0)
     
     # -> home folder
     home = str(Path.home())
