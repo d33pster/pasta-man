@@ -181,7 +181,7 @@ class pmanager:
     def copyToClipboard(self):
         
         # prepare alleged pass
-        allegedpass = simpledialog.askstring("Master Password", "Enter Master Password to copy password to clipboard: ")
+        allegedpass = simpledialog.askstring("Master Password", "Enter Master Password to copy password to clipboard: ", show='-')
         
         # get masterpass
         with open(jPath(str(Path.home()), '.pastaman', '.m'), 'rb') as m:
