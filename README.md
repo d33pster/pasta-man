@@ -84,12 +84,12 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.5
+pip install pasta-man==1.0.6
 ```
 
 ## README before [#Usage](#usage)
 
-After update _v1.0.4_, `pasta-man` launches as a separate process. There are two commands that gets installed with `pip install pasta-man==1.0.4` -> `pasta-man` and `pasta-man-launcher`.
+After update _v1.0.4_, `pasta-man` launches as a separate process. There are two commands that gets installed with `pip install pasta-man>=1.0.4` -> `pasta-man` and `pasta-man-launcher`.
 
 - `pasta-man` Command
 
@@ -127,3 +127,8 @@ Uninstall using pip
 ```bash
 pip uninstall pasta-man
 ```
+
+## Yanked Versions
+- _v1.0.5_
+    
+    `Major Bug`: After Threads Update and Threads Patch 1, There was a major bug where the code breaks while initializing the app for the first time.

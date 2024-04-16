@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # version info
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
