@@ -47,7 +47,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
         batfile.write(batdat)
-    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"]).wait()
+    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
     print('complete')
 
 def main():
