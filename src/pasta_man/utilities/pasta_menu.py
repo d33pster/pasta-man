@@ -16,6 +16,7 @@ class __menu__:
         self.parent = menuparent
         
         # set style -> theme -> default: arc
+        self.defaultTheme = None
         if not there(jPath(str(Path.home()), '.pastaman', '.defaulttheme')):
             self.style:ttkthemes.themed_style.ThemedStyle = ttkthemes.themed_style.ThemedStyle(theme='arc')
         else:
