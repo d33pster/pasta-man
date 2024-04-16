@@ -84,7 +84,7 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.6
+pip install pasta-man==1.0.7
 ```
 
 ## README before [#Usage](#usage)
