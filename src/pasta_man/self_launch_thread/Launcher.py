@@ -19,7 +19,7 @@ def checklogfile():
 def makePasta():
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
-    subprocess.Popen(['win-setup.bat'],).wait()
+    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"]).wait()
 
 def main():
     checklogfile()
