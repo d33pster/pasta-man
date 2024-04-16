@@ -78,13 +78,14 @@ Themes can be changed using the MenuBar -
 - pyperclip
 - optioner>=1.5.2
 - cryptography
+- pyinstaller
 
 ## Installation
 
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.7
+pip install pasta-man==1.0.8
 ```
 
 ## README before [#Usage](#usage)
