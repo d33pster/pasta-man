@@ -44,10 +44,11 @@ echo Complete.
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
+    print('(one-time)')
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
-        batfile.write(batdat)    
-    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
+        batfile.write(batdat)
+    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"]).wait()
     print('complete')
 
 def main():
@@ -69,7 +70,8 @@ def main():
     if system=='Darwin' or system=='Linux':
         run('nohup pasta-man-launcher > ~/.pastaman/.log &')
     elif system=='Windows':
-        makePasta()
+        if not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')):
+            makePasta()
         chdir(jPath(str(Path.home()), '.pastaman'))
         subprocess.Popen(['start', '\\B', 'wscipt.exe', 'pasta-man.vbs'])
     

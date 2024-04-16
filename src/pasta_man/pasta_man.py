@@ -17,6 +17,7 @@ from pathlib import Path
 from os.path import join as jPath, exists as there, abspath
 from os import makedirs
 from optioner import options
+from shutil import rmtree
 import sys
 import threading
 
@@ -73,13 +74,14 @@ def main():
     global encb, dencb
     
     # define arguments
-    shortargs = ['h', 'v', 'p']
-    longargs = ['help', 'version', 'path']
+    shortargs = ['h', 'v', 'p', 'rmc']
+    longargs = ['help', 'version', 'path', 'remove-configurations']
     
     optctrl = options(shortargs, longargs, sys.argv[1:], ifthisthennotthat=[
-        ['help', 'h'],['v', 'version', 'p', 'path'],
-        ['v', 'version'], ['h','help', 'p', 'path'],
-        ['p', 'path'], ['v','version', 'h', 'help']
+        ['help', 'h'],['v', 'version', 'p', 'path', 'rmc', 'remove-configurations'],
+        ['v', 'version'], ['h','help', 'p', 'path', 'rmc', 'remove-configurations'],
+        ['p', 'path'], ['v','version', 'h', 'help', 'rmc', 'remove-configurations'],
+        ['rmc', 'remove-configurations'], ['p', 'path', 'v', 'version', 'h', 'help']
     ])
     args, check, error, falseargs = optctrl._argparse()
     
@@ -94,6 +96,9 @@ def main():
             h.helper()
         elif '-p' in args or '--path' in args:
             print(abspath(__file__))
+            sys.exit(0)
+        elif '-rmc' in args or '--remove-configurations' in args:
+            rmtree(jPath(str(Path.home()), '.pastaman'))
             sys.exit(0)
     
     # -> home folder
