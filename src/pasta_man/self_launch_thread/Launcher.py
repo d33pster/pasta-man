@@ -48,7 +48,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
         batfile.write(batdat)
     subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
-    print('complete')
+    print('complete.')
 
 def main():
     checklogfile()
