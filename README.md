@@ -121,6 +121,35 @@ After update _v1.0.4_, `pasta-man` launches as a separate process. There are two
     pasta-man -v # or pasta-man --version
     ```
 
+## Troubleshooting
+
+- Windows
+    - Running `pasta-man` for the first time will trigger a setup mechanism. If the setup fails for any reason, run the following commands in the CMD.
+
+        ```batch
+        pasta-man -rmc
+        ```
+        
+        or
+
+        
+        ```batch
+        pasta-man --remove-configurations
+        ```
+        And then run `pasta-man` again.
+    
+    - For Complete list of Developer Options of pasta-man, run the following commands.
+
+        ```batch
+        pasta-man -h
+        ```
+        
+        or
+
+        ```batch
+        pasta-man --help
+        ```
+
 ## Uninstall
 
 Uninstall using pip
