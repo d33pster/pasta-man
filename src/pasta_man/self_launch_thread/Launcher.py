@@ -21,13 +21,8 @@ def makePasta():
 @REM turn printing of commands off
 @echo off
 
-@REM print status
-echo Operating System: Windows
-echo setting up pasta-man
-echo This might take a while.
-
 @REM install using pyinstaller.
-pyinstaller --onefile --noconsole pasta-man.py > NUL
+pyinstaller --onefile --noconsole pasta_man.py > NUL
 
 @REM After this delete .spec file and build folder tree.
 del build /s /q
@@ -49,9 +44,11 @@ echo Complete.
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
+    print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
-        batfile.write(batdat)
-    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"]).wait()
+        batfile.write(batdat)    
+    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
+    print('complete')
 
 def main():
     checklogfile()
