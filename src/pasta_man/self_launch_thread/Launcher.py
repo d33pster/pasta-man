@@ -3,10 +3,10 @@
 #
 
 from platform import system as os
-from os import system as run, makedirs
-from os.path import exists as there, join as jPath
+from os import system as run, makedirs, chdir
+from os.path import exists as there, join as jPath, dirname, abspath
 from pathlib import Path
-import sys
+import sys, subprocess
 
 def checklogfile():
     if not there(jPath(str(Path.home()), '.pastaman')):
@@ -15,6 +15,11 @@ def checklogfile():
     if not there(jPath(str(Path.home()), '.pastaman', '.log')):
         with open(jPath(str(Path.home()), '.pastaman', '.log'), 'w') as logfile:
             logfile.write("log file init")
+
+def makePasta():
+    directory = dirname(dirname(abspath(__file__))) # pasta_man directory
+    chdir(directory)
+    subprocess.Popen(['win-setup.bat'],).wait()
 
 def main():
     checklogfile()
@@ -35,6 +40,8 @@ def main():
     if system=='Darwin' or system=='Linux':
         run('nohup pasta-man-launcher > ~/.pastaman/.log &')
     elif system=='Windows':
-        run('start \"Pasta Man\" pasta-man-launcher')
+        makePasta()
+        chdir(jPath(str(Path.home()), '.pastaman'))
+        subprocess.Popen(['start', '\\B', 'wscipt.exe', 'pasta-man.vbs'])
     
     sys.exit(0)
