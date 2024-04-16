@@ -38,6 +38,8 @@ del dist /s /q
 cd %USERPROFILE%\.pastaman
 echo Set pastaShell = WScript.CreateObject("WScript.Shell") > pasta-man.vbs
 echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-man.vbs
+
+@REM copy it 
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
@@ -70,6 +72,6 @@ def main():
         if not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')):
             makePasta()
         chdir(jPath(str(Path.home()), '.pastaman'))
-        subprocess.Popen(['start', '\\B', 'wscipt.exe', 'pasta-man.vbs'])
+        subprocess.Popen(['start', '/B', 'wscipt.exe', 'pasta-man.vbs'])
     
     sys.exit(0)
