@@ -72,6 +72,5 @@ def main():
         if not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')):
             makePasta()
         chdir(jPath(str(Path.home()), '.pastaman'))
-        # subprocess.Popen(['start', '/B', 'wscipt.exe', 'pasta-man.vbs']).wait()
         run(f"start /B wscript.exe {jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')}")
     sys.exit(0)
