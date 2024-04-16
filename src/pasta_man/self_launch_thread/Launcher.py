@@ -26,10 +26,10 @@ pyinstaller --onefile --noconsole pasta_man.py > NUL
 
 @REM After this delete .spec file and build folder tree.
 del build /s /q
-del pasta-man.spec
+del pasta_man.spec
 
-@REM copy dist/pasta-man.exe to %USERPROFILE%\.pastaman\pasta-man.exe
-copy dist\pasta-man.exe %USERPROFILE%\.pastaman\pasta-man.exe
+@REM copy dist/pasta_man.exe to %USERPROFILE%\.pastaman\pasta-man.exe
+copy dist\pasta_man.exe %USERPROFILE%\.pastaman\pasta-man.exe
 
 @REM delete dist
 del dist /s /q
@@ -38,9 +38,6 @@ del dist /s /q
 cd %USERPROFILE%\.pastaman
 echo Set pastaShell = WScript.CreateObject("WScript.Shell") > pasta-man.vbs
 echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-man.vbs
-
-@REM status
-echo Complete.
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
