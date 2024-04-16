@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 # version info
-__version__ = "1.0.6"
+__version__ = "1.0.7"
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
@@ -38,7 +38,7 @@ def checkmfile(home = str(Path.home())) -> bytes:
     # --> find out if master password is defined -> .m file
     if not there(jPath(home, '.pastaman', '.m')):
         # ask dialog
-        masterpassword = simpledialog.askstring("User Input", "Enter Master Password: ")
+        masterpassword = simpledialog.askstring("User Input", "Enter Master Password: ", show='-')
         # check if it is empty or non
         if masterpassword=='' or masterpassword==None:
             raise NoneTypeVariable('Aborted.')
