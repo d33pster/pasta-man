@@ -84,12 +84,12 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.5
+pip install pasta-man==1.0.6
 ```
 
 ## README before [#Usage](#usage)
 
-After update _v1.0.4_, `pasta-man` launches as a separate process. There are two commands that gets installed with `pip install pasta-man==1.0.4` -> `pasta-man` and `pasta-man-launcher`.
+After update _v1.0.4_, `pasta-man` launches as a separate process. There are two commands that gets installed with `pip install pasta-man>=1.0.4` -> `pasta-man` and `pasta-man-launcher`.
 
 - `pasta-man` Command
 
