@@ -19,7 +19,7 @@ Modules:
 Hierarchy:
     - encryption.py:
         - contents:
-            - Encryption Class
+            - Encryption (class)
                 - contents:
                     __init__
                     lock
