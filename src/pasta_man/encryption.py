@@ -14,7 +14,6 @@ Modules:
         - description: Modules made for this project.
         - contents:
             pasta_man.exceptions.RestrictedActivity (class)
-            pasta_man.exceptions.RESTRICTEDACTIVITY (const)
 
 Hierarchy:
     - encryption.py:
@@ -55,7 +54,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 # import all project specific modules
-from pasta_man.exceptions import RestrictedActivity, RESTRICTEDACTIVITY
+from pasta_man.exceptions import RestrictedActivity
 
 # Encryption Class Definition
 class Encryption:
@@ -94,7 +93,7 @@ class Encryption:
                 self.__status = False
         # if status is false, raise error.
         else:
-            raise RestrictedActivity(RESTRICTEDACTIVITY, 'lock')
+            raise RestrictedActivity(RestrictedActivity.RESTRICTEDACTIVITY, 'lock')
     
     # unlock function
     def unlock(self) -> bytes:
@@ -107,4 +106,4 @@ class Encryption:
                 self.__status = False
         # if status is False, raise error.
         else:
-            raise RestrictedActivity(RESTRICTEDACTIVITY, 'unlock')
+            raise RestrictedActivity(RestrictedActivity.RESTRICTEDACTIVITY, 'unlock')
