@@ -1,20 +1,66 @@
-#
-# This File contains the Exceptions related to PASTA-MAN only.
-#
+"""
+Modules:
+    - internal:
+        - description: Already Comes installed with your python interpreter.
+    - external:
+        - description: Needs to be installed using pip.
+    - Project Specific
+        - description: Modules made for this project.
+        - contents:
 
-RESTRICTEDACTIVITY = "This activity is not permitted ->"
+Hierarchy:
+    - exceptions.py:
+        - contents:
+            InvalidKeyword
+            InvalidExportType
+            NoneTypeVariable
+            - OptError (class):
+                - contents:
+                    OPTIONERROR (const)
+            - RestrictedActivity (class):
+                - contents:
+                    RESTRICTEDACTIVITY (const)
+InvalidKeyword:
+    - description: Exception for Invalid Keyword.
 
+InvalidExportType:
+    - description: Exception for Invalid Export Type.
+
+NoneTypeVariable:
+    - description: Exception for None Type Variable.
+
+OptError:
+    - description: Exception for Option Error.
+    
+    - OPTIONERROR (const):
+        - 
+
+RestrictedActivity:
+    - description: Exception for Restricted Activity.
+
+    - RESTRICTEDACTIVITY (const):
+        - description: Contains default prefix text for RestrictedActivity Exception.
+        - value: 'This activity is not permitted ->'            
+"""
+
+# Invalid Keyword Exception
 class InvalidKeyword(Exception):
     pass
 
+# Invalid Export Type Exception
 class InvalidExportType(Exception):
     pass
 
+# None Type Variable Exception
 class NoneTypeVariable(Exception):
     pass
 
+# Option Error Exception
 class OptError(Exception):
+    OPTIONERROR = "Option Error ->"
     pass
 
+# Restricted Activity Exception
 class RestrictedActivity(Exception):
+    RESTRICTEDACTIVITY = "This activity is not permitted ->" # exception constant
     pass
