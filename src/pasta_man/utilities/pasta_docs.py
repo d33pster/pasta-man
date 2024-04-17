@@ -14,7 +14,38 @@ Modules:
         - description: Modules made for this project.
 
 Hierarchy:
-    - 
+    - pasta_docs.py
+        - contents:
+            - docstring (class)
+                -contents:
+                    __init__
+                    list_recursive
+                    listRecurseF
+                    fetch
+
+docstring class:
+    - description: docstring class is made to fetch the docstring of a file just for pasta-man.
+
+__init__:
+    - description: This method is called as soon as the docstring class is initialized.
+
+list_recursive:
+    - description: This method can return a list of all complete module paths of pasta-man.
+    - return:
+        - type: list[str]
+
+listRecurseF:
+    - description: print level wise hierarchy of modules of pasta-man
+
+fetch:
+    - description: fetch the main docstring from the module file.
+    - params:
+        - module:
+            - description: the module whose docstring needs to be fetched.
+            - type: str
+
+working:
+    - This file is responsible for resolving and fetching docstrings defined inside the modules.
 """
 
 from os.path import dirname, abspath
