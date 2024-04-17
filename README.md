@@ -1,4 +1,5 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/pasta-man)
+![PyPI - Status](https://img.shields.io/pypi/status/pasta-man)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pasta-man)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/pasta-man)
 ![PyPI - License](https://img.shields.io/pypi/l/pasta-man)
@@ -69,6 +70,39 @@ Themes can be changed using the MenuBar -
 - Win XP
 - Yaru
 
+## Code Description
+
+To know more about the code structure and module information like - 
+
+- Modules that are imported
+    
+    - Internal (all the modules used that already come with your python interpreter)
+
+    - External (all the modules used that were installed using pip, these are also mentioned in pyproject.toml and requirements.txt)
+
+    - Project specifiv (all the modules used that were specifically created for this project.)
+
+- Hierarchy
+    
+    The hierarchy of classes and functions.
+
+- Individial Object Descriptions
+
+    Descriptions about individual components of the code such as funtions and parameters.
+
+- Working
+
+    If there is any working rule or basic working of the module.
+
+All these can be seen by running the following commands:
+
+```console
+# pasta-man v1.0.9 and above supports docstring fetching, and can be done using:
+
+# in the terminal/CMD, run
+$ pasta-man -dwl # for docs with listing of hierarchy.
+```
+
 ## Dependencies
 - Python>=3.9
 - pandas
@@ -85,7 +119,7 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.8
+pip install pasta-man==1.0.9
 ```
 
 ## README before [#Usage](#usage)
