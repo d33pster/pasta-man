@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-
-import pasta_man.pasta_man
-
-
-if __name__=="__main__":
-    import pasta_man
-    pasta_man.pasta_man.main()
+"""
+This file was created for an earlier version.
+This file has no use right now.
+"""
