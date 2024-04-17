@@ -84,6 +84,14 @@ class Encryption:
     
     # lock function
     def lock(self) -> bytes:
+        """## lock the masterp
+
+        ### Raises:
+            - `RestrictedActivity`: the class can be only used once.
+
+        ### Returns:
+            - `bytes`: returns locked bytes
+        """
         # return locked bytes if status is True.
         if self.__status:
             try:
@@ -97,6 +105,14 @@ class Encryption:
     
     # unlock function
     def unlock(self) -> bytes:
+        """## unlock the string
+
+        ### Raises:
+            - `RestrictedActivity`: the class can be only used once
+
+        ### Returns:
+            - `bytes`: return unlocked bytes
+        """
         # return unlocked bytes if status is True
         if self.__status:
             try:
