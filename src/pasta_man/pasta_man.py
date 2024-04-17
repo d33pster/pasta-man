@@ -236,22 +236,24 @@ def main():
                 print(colored(f'No docstring defined for {userin}', 'red'))
             
             sys.exit(0)
-        elif '-d' in args or '--doc' in args:
-            value = optctrl._what_is_('d')
-            docs = docstring()
-            print(colored('Pasta Man', 'blue'), colored(f'v{__version__}', 'red'))
-            document = docs.fetch(value)
-            if document!=None:
-                if platform.system()=='Windows':
-                    run('cls')
-                else:
-                    run('clear')
-                print('\n'+colored(f'{value}', 'yellow'), 'docstring: ')
-                print(document)
-            else:
-                print(colored(f'No docstring defined for {value}', 'red'))
+        ## FIX LATER
+        # elif '-d' in args or '--doc' in args: 
+        #     value = optctrl._what_is_('d')
+        #     print(value)
+        #     docs = docstring()
+        #     print(colored('Pasta Man', 'blue'), colored(f'v{__version__}', 'red'))
+        #     document = docs.fetch(value)
+        #     if document!=None:
+        #         if platform.system()=='Windows':
+        #             run('cls')
+        #         else:
+        #             run('clear')
+        #         print('\n'+colored(f'{value}', 'yellow'), 'docstring: ')
+        #         print(document)
+        #     else:
+        #         print(colored(f'No docstring defined for {value}', 'red'))
             
-            sys.exit(0)
+        #     sys.exit(0)
     
     # -> home folder
     home = str(Path.home())
