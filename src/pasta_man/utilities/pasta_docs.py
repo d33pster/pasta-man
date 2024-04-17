@@ -187,7 +187,7 @@ class docstring:
             - `module (str)`: module path
 
         ### Returns:
-            - `str | None`: returns docstring or None.
+            - `str | None`: returns docstring or None
         """
         if len(module.split('.'))==1:
             return self.__fetch(daddy=True)
