@@ -33,14 +33,21 @@ OptError:
     - description: Exception for Option Error.
     
     - OPTIONERROR (const):
-        - 
+        - description: contains default prefix text for OptError
+        - value: 'Option Error:'
 
 RestrictedActivity:
     - description: Exception for Restricted Activity.
 
     - RESTRICTEDACTIVITY (const):
         - description: Contains default prefix text for RestrictedActivity Exception.
-        - value: 'This activity is not permitted ->'            
+        - value: 'This activity is not permitted:'            
+
+InvalidExportType:
+    - description: Exception for Invalid File type of import
+    
+    - INVALIDIMPORTTYPE (const):
+        - description: contains default prefix text for InvalidExportType Exception.
 """
 
 # Invalid Keyword Exception
@@ -57,10 +64,14 @@ class NoneTypeVariable(Exception):
 
 # Option Error Exception
 class OptError(Exception):
-    OPTIONERROR = "Option Error ->"
+    OPTIONERROR = "Option Error:"
     pass
 
 # Restricted Activity Exception
 class RestrictedActivity(Exception):
-    RESTRICTEDACTIVITY = "This activity is not permitted ->" # exception constant
+    RESTRICTEDACTIVITY = "This activity is not permitted:" # exception constant
+    pass
+
+class InvalidImportType(Exception):
+    INVALIDIMPORTTYPE = "This File format is not yet supported:"
     pass
