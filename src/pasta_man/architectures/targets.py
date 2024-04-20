@@ -25,7 +25,7 @@ import sys
 #
 
 class targets:
-    def __init__(self, masterpassword: bytes, mastersalt: bytes = "pastaman".encode('ascii')):
+    def __init__(self, masterpassword: bytes):
         """Initialize targets class.
 
         Args:
@@ -38,7 +38,7 @@ class targets:
         """
         # initialize data
         self.data:list[dict] = []
-        self.msalt = mastersalt
+        self.msalt = "pastaman".encode('ascii')
         self.mpass = masterpassword
     
     def init(self):
