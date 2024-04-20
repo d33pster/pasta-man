@@ -43,7 +43,7 @@ Working:
 
 from platform import system as os
 from os import system as run, makedirs, chdir
-from os.path import exists as there, join as jPath, dirname, abspath
+from os.path import exists as there, join as jPath, dirname, abspath, basename
 from pathlib import Path
 import sys, subprocess
 
@@ -93,15 +93,14 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
 
 def main():
     checklogfile()
-    
     # check for arguments
     if len(sys.argv[1:])>0:
-        # convert all args into a string with white spaces between them
-        args = sys.argv[1]
-        for i in range(len(sys.argv[2:])):
-            args += " " + sys.argv[i]
-        # run 
-        run(f'pasta-man-launcher {args}')
+        sys.argv[0] += sys.argv[0]+'-launcher'
+        command = basename(sys.argv[0])
+        for i in range(1, len(sys.argv)):
+            command += " " + sys.argv[i]
+        
+        run(command)
         # exit
         sys.exit(0)
     

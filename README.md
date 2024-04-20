@@ -43,6 +43,25 @@ Upon [Search](#search), `Pasta-Man` allows to copy the password for the found ma
 ### Faster than basic tkinter apps
 `Pasta-Man` actively uses Threads to carry out intensive tasks in order to minimize GUI lag as well as have better performance than any basic app created through python tkinter lib.
 
+### Import-Export Passwords
+`Pasta-Man` _v1.0.10_ onwards supports importing and exporting of passwords. **Note:** `Pasta-Man` can only import passwords that were exported by `Pasta-Man`. This Import/Export Feature is a solution to changing your PC or system.
+
+Be relieved that the exported passwords will be in encrypted format.
+
+- **Export Format:** `Pasta-Man` will append all the passwords encrypted by master password and all the data associated with it, to the encrypted master password into the output format chosen by user.
+
+- **Import Mechanism:** `Pasta-Man` will decrypt the master password associated with the passwords file and then decrypt all the data appended to it and then encrypt the data and passwords by using the current system master password, then append it to the currently existing passwords. And finally encrypt everything again.
+
+- **Usage:**
+    ```bash
+    pasta-man -e <output-file-format> # or pasta-man --export <output-file-format>
+
+    pasta-man -i # or pasta-man --import
+    ```
+
+    Both of the commands above will trigger a file/directory selector dialog for selecting the desired directory or files.
+
+
 ### Themes
 User can now change Theme for the app from the Menu Bar. Default is `Arc`. Whatever theme the user chooses, It will be set as default and next time `Pasta-Man` is launched, that theme will be loaded.
 
@@ -120,7 +139,7 @@ $ pasta-man -dwl # for docs with listing of hierarchy.
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.9
+pip install pasta-man==1.0.10
 ```
 
 ## README before [#Usage](#usage)

@@ -3,7 +3,8 @@
 #
 
 # import project specific modules.
-from pasta_man.exceptions import InvalidKeyword, InvalidExportType
+from pasta_man.exceptions import InvalidKeyword, InvalidExportType, InvalidImportType
+from pasta_man.utilities.retransform import Retransform
 
 # import other arguments
 from cryptography.fernet import Fernet
@@ -11,13 +12,11 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from base64 import urlsafe_b64encode
 from pathlib import Path
-from os import makedirs
+from os import getcwd as pwd
 from os.path import join as jPath, exists as there
 from datetime import datetime
-# from tabulate import tabulate
 import pandas as pd
 import sys
-from re import match
 
 #
 # The format to save the persistent passwords file ==>
@@ -107,6 +106,30 @@ class targets:
         
         sys.exit(0)
         
+    def __append(self, data: list[dict]):
+        # append to data variable
+        self.data.extend(data)
+        
+        # read current data
+        with open(jPath(str(Path.home()), '.pastaman', '.passwords'), 'rb') as pfile:
+            __content = pfile.read()
+        
+        # decrypt
+        __content = self.fernet.decrypt(__content).decode('ascii').split('\n')
+        
+        # add the lines
+        for dictionary in data:
+            string = "target-type:"+dictionary['target-type']+"|target:"+dictionary['target']+"|username:"+dictionary['username']+"|password:"+dictionary['password']+"|timestamp:"+dictionary['timestamp']
+            __content.append(string)
+        
+        __contentstring = ""
+        for x in __content:
+            __contentstring += x + "\n"
+        
+        __contentstring = self.fernet.encrypt(__contentstring.encode('ascii'))
+        
+        with open(jPath(str(Path.home()), '.pastaman', '.passwords'), 'wb') as pfile:
+            pfile.write(__contentstring)
     
     def add(self, target:str, targettype: str, username: str, password:bytes):
         """Add data in collection.
@@ -263,7 +286,7 @@ class targets:
         self._dec_ = self.fernet.decrypt(password).decode('ascii')
         sys.exit(0)
     
-    def export(self, exporttype: str = "csv") -> None:
+    def export(self, exporttype: str = "csv", path: str = pwd()) -> None:
         """General purpose Export. Excludes timestamp.
 
         Args:
@@ -274,12 +297,33 @@ class targets:
         if exporttype not in valid:
             raise InvalidExportType(f'{exporttype} is not supported yet.')
         
-        self.DataFrame = pd.DataFrame(self.data).drop('timestamp', axis=1)
+        with open(jPath(str(Path.home()), '.pastaman', '.m'), 'rb') as m:
+            __dat = {
+                "target-type":"master",
+                "target":"master",
+                "username":"master",
+                "password":m.read().decode('ascii')
+            }
+        __data:list[str] = []
+        __data.append(__dat)
+        __data.extend(self.data)
+        
+        self.DataFrame = pd.DataFrame(__data).drop('timestamp', axis=1)
         
         if exporttype == 'csv':
-            self.DataFrame.to_csv(datetime.now()+"-pastaman-passwords.csv", index = False, header = False)
+            self.DataFrame.to_csv(jPath(path, str(datetime.timestamp(datetime.now())).split('.')[0]+"-pastaman-passwords.csv"), index = False, header = False)
         elif exporttype == 'xlsx':
-            self.DataFrame.to_excel(datetime.now()+"-pastaman-passwords.xlsx", index=False, header=False)
-    
-    # def import(self, )
+            self.DataFrame.to_excel(jPath(path, str(datetime.timestamp(datetime.now())).split('.')[0]+"-pastaman-passwords.xlsx"), index=False, header=False)
         
+        sys.exit(0)
+    
+    def importer(self, ext: str, path: str):
+        valid = ['.csv', '.xlsx']
+        
+        if ext not in valid:
+            raise InvalidImportType(InvalidImportType.INVALIDIMPORTTYPE, ext)
+        
+        __newdata = Retransform(path, ext).data
+        self.__append(__newdata)
+        
+        sys.exit(0)
