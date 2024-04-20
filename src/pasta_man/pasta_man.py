@@ -77,7 +77,7 @@ from optioner import options
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
 from pasta_man.architectures.targets import targets
-from pasta_man.encryption import Encryption
+from pasta_man.utilities.encryption import Encryption
 from pasta_man.exceptions import NoneTypeVariable, OptError
 from pasta_man.utilities.helptext import helptext
 from pasta_man.utilities.pasta_docs import docstring
