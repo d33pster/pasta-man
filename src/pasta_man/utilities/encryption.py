@@ -54,7 +54,7 @@ from cryptography.hazmat.primitives.hashes import SHA256
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 
 # import all project specific modules
-from pasta_man.exceptions import RestrictedActivity
+from pasta_man.utilities.Exceptions.exceptions import RestrictedActivity
 
 # Encryption Class Definition
 class Encryption:
