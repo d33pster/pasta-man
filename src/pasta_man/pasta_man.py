@@ -59,23 +59,24 @@ Working:
 """
 
 # version info
-__version__ = "1.0.9"
+__version__ = "1.0.10"
 
 # import internal modules
 from pathlib import Path
-from os.path import join as jPath, exists as there, abspath
-from os import makedirs, system as run
+from os.path import join as jPath, exists as there, abspath, splitext
+from os import makedirs, system as run, getcwd as pwd
 from shutil import rmtree
 import sys, threading, platform
 
 # import external modules
 from tkinter import *
-from tkinter import simpledialog
+from tkinter import simpledialog, filedialog
 from termcolor import colored
 from optioner import options
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
+from pasta_man.architectures.targets import targets
 from pasta_man.encryption import Encryption
 from pasta_man.exceptions import NoneTypeVariable, OptError
 from pasta_man.utilities.helptext import helptext
@@ -179,12 +180,20 @@ def main():
     """
     The main function of the program.
     """
+    # -> home folder
+    home = str(Path.home())
+    # -> find out if .pastaman folder is there
+    if not there(jPath(home, '.pastaman')):
+        makedirs(jPath(home, '.pastaman'))
+    
+    masterpassword = checkmfile()
+    
     # define global vars
     global encb, dencb, ORIGINAL
     
     # define arguments
-    shortargs = ['h', 'v', 'p', 'rmc', 'dwl', 'd']
-    longargs = ['help', 'version', 'path', 'remove-configurations', 'doc-w-list', 'doc']
+    shortargs = ['h', 'v', 'p', 'rmc', 'dwl', 'i', 'e']
+    longargs = ['help', 'version', 'path', 'remove-configurations', 'doc-w-list', 'import', 'export']
     
     ORIGINAL = shortargs.copy()
     ORIGINAL.extend(longargs)
@@ -196,7 +205,8 @@ def main():
         ['p', 'path'], __remove(['p', 'path']),
         ['rmc', 'remove-configurations'], __remove(['rmc', 'remove-configurations']),
         ['dwl', 'doc-w-list'], __remove(['dwl', 'doc-w-list']),
-        ['d', 'doc'], __remove(['d', 'doc'])
+        ['i', 'import'], __remove(['i', 'import']),
+        ['e', 'export'], __remove(['export', 'e'])
     ])
     # process args
     args, check, error, falseargs = optctrl._argparse()
@@ -236,32 +246,30 @@ def main():
                 print(colored(f'No docstring defined for {userin}', 'red'))
             
             sys.exit(0)
-        ## FIX LATER
-        # elif '-d' in args or '--doc' in args: 
-        #     value = optctrl._what_is_('d')
-        #     print(value)
-        #     docs = docstring()
-        #     print(colored('Pasta Man', 'blue'), colored(f'v{__version__}', 'red'))
-        #     document = docs.fetch(value)
-        #     if document!=None:
-        #         if platform.system()=='Windows':
-        #             run('cls')
-        #         else:
-        #             run('clear')
-        #         print('\n'+colored(f'{value}', 'yellow'), 'docstring: ')
-        #         print(document)
-        #     else:
-        #         print(colored(f'No docstring defined for {value}', 'red'))
+        elif '-e' in args or '--export' in args:
+            path = filedialog.askdirectory(title="Export Path", initialdir=pwd())
+            ext = optctrl._what_is_('e')
+                
+            if path:
+                t = targets(masterpassword)
+                thread = threading.Thread(target=t.init)
+                thread.start()
+                thread.join()
+                threading.Thread(target=t.export, args=(ext, path)).start()
             
-        #     sys.exit(0)
-    
-    # -> home folder
-    home = str(Path.home())
-    # -> find out if .pastaman folder is there
-    if not there(jPath(home, '.pastaman')):
-        makedirs(jPath(home, '.pastaman'))
-    
-    masterpassword = checkmfile()
+            sys.exit(0)
+        elif '-i' in args or '--import' in args:
+            path = filedialog.askopenfilename(title="Import", initialdir=pwd(), filetypes=[("Excel Files", "*.xlsx"), ("CSV Files", "*.csv")], defaultextension="*.csv")
+            p, ext = splitext(path)
+            if path:
+                t = targets(masterpassword)
+                thread = threading.Thread(target=t.init)
+                thread.start()
+                thread.join()
+                threading.Thread(target=t.importer, args=(ext, path)).start()
+            
+            sys.exit(0)
+            
     
     # define main root gui window
     rootwindow = Tk()
