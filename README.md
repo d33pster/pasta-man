@@ -1,3 +1,4 @@
+[![Continuous Deployment](https://github.com/d33pster/pasta-man/actions/workflows/ContinuousDeployment.yml/badge.svg)](https://github.com/d33pster/pasta-man/actions/workflows/ContinuousDeployment.yml)
 ![PyPI - Version](https://img.shields.io/pypi/v/pasta-man)
 ![PyPI - Status](https://img.shields.io/pypi/status/pasta-man)
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pasta-man)
