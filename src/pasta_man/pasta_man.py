@@ -59,31 +59,25 @@ Working:
 """
 
 # version info
-__version__ = "1.0.10"
+__version__ = "1.1.0"
 
 # import internal modules
 from pathlib import Path
-from os.path import join as jPath, exists as there, abspath, splitext
-from os import makedirs, system as run, getcwd as pwd
-from shutil import rmtree
-import sys, threading, platform
+from os.path import join as jPath, exists as there
+from os import makedirs
+import sys, threading
 
 # import external modules
 from tkinter import *
-from tkinter import simpledialog, filedialog
+from tkinter import simpledialog
 from termcolor import colored
-from optioner import options
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
-from pasta_man.architectures.targets import targets
+from pasta_man.architectures.terminal import Terminal
 from pasta_man.utilities.encryption import Encryption
-from pasta_man.exceptions import NoneTypeVariable, OptError
-from pasta_man.utilities.helptext import helptext
-from pasta_man.utilities.pasta_docs import docstring
-
-# constant
-ORIGINAL:list[str] = []
+from pasta_man.utilities.Exceptions.exceptions import NoneTypeVariable
+from pasta_man.utilities.Exceptions.TerminalExceptions import EmptyArgument
 
 # locker function
 def locker(masterpassword: str):
@@ -164,18 +158,6 @@ def checkmfile(home = str(Path.home())) -> bytes:
     
     return masterpassword
 
-
-def __remove(excpt: list[str]) -> list[str]:
-    global ORIGINAL
-    without:list[str] = []
-    for x in ORIGINAL:
-        if x in excpt:
-            continue
-        else:
-            without.append(x)
-
-    return without
-
 def main():
     """
     The main function of the program.
@@ -189,87 +171,13 @@ def main():
     masterpassword = checkmfile()
     
     # define global vars
-    global encb, dencb, ORIGINAL
+    global encb, dencb
     
-    # define arguments
-    shortargs = ['h', 'v', 'p', 'rmc', 'dwl', 'i', 'e']
-    longargs = ['help', 'version', 'path', 'remove-configurations', 'doc-w-list', 'import', 'export']
     
-    ORIGINAL = shortargs.copy()
-    ORIGINAL.extend(longargs)
-    
-    # create options class object
-    optctrl = options(shortargs, longargs, sys.argv[1:], ifthisthennotthat=[
-        ['help', 'h'],__remove(['help', 'h']),
-        ['v', 'version'], __remove(['v', 'version']),
-        ['p', 'path'], __remove(['p', 'path']),
-        ['rmc', 'remove-configurations'], __remove(['rmc', 'remove-configurations']),
-        ['dwl', 'doc-w-list'], __remove(['dwl', 'doc-w-list']),
-        ['i', 'import'], __remove(['i', 'import']),
-        ['e', 'export'], __remove(['export', 'e'])
-    ])
-    # process args
-    args, check, error, falseargs = optctrl._argparse()
-    
-    # if there is any error
-    if not check:
-        raise OptError(error)
-    else:
-        h = helptext()
-        h.__version__ = __version__
-        if '-v' in args or '--version' in args:
-            h.showver()
-        elif '-h' in args or '--help' in args:
-            h.helper()
-        elif '-p' in args or '--path' in args:
-            print(abspath(__file__))
-            sys.exit(0)
-        elif '-rmc' in args or '--remove-configurations' in args:
-            rmtree(jPath(str(Path.home()), '.pastaman'))
-            sys.exit(0)
-        elif '-dwl' in args or '--doc-w-list' in args:
-            docs = docstring()
-            print(colored('Pasta Man', 'blue'), colored(f'v{__version__}', 'red'))
-            print('\n'+colored('Hierarchy:', 'yellow'))
-            docs.listRecurseF()
-            print('\nExample: pasta_man.architectures.gui')
-            userin = input(colored('pasta>>> ', 'yellow'))
-            document = docs.fetch(userin)
-            if document!=None:
-                if platform.system()=='Windows':
-                    run('cls')
-                else:
-                    run('clear')
-                print('\n'+colored(f'{userin}', 'yellow'), 'docstring: ')
-                print(document)
-            else:
-                print(colored(f'No docstring defined for {userin}', 'red'))
-            
-            sys.exit(0)
-        elif '-e' in args or '--export' in args:
-            path = filedialog.askdirectory(title="Export Path", initialdir=pwd())
-            ext = optctrl._what_is_('e')
-                
-            if path:
-                t = targets(masterpassword)
-                thread = threading.Thread(target=t.init)
-                thread.start()
-                thread.join()
-                threading.Thread(target=t.export, args=(ext, path)).start()
-            
-            sys.exit(0)
-        elif '-i' in args or '--import' in args:
-            path = filedialog.askopenfilename(title="Import", initialdir=pwd(), filetypes=[("Excel Files", "*.xlsx"), ("CSV Files", "*.csv")], defaultextension="*.csv")
-            p, ext = splitext(path)
-            if path:
-                t = targets(masterpassword)
-                thread = threading.Thread(target=t.init)
-                thread.start()
-                thread.join()
-                threading.Thread(target=t.importer, args=(ext, path)).start()
-            
-            sys.exit(0)
-            
+    try:
+        terminal = Terminal(__version__, sys.argv[1:], masterpassword)
+    except EmptyArgument:
+        pass
     
     # define main root gui window
     rootwindow = Tk()
