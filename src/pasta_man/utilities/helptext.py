@@ -40,9 +40,9 @@ Working:
 from termcolor import colored
 import sys
 
-class helptext:
-    def __init__(self):
-        self.__version__ = ''
+class Helptext:
+    def __init__(self, __version__: str):
+        self.__version__ = __version__
     
     def helper(self):
         print(colored('Pasta Man', 'blue'), colored(f'v{self.__version__}', 'red'))

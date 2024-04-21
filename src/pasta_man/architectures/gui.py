@@ -5,7 +5,7 @@
 # import project specific modules
 import sys
 from pasta_man.architectures.targets import targets
-from pasta_man.encryption import Encryption
+from pasta_man.utilities.encryption import Encryption
 from pasta_man.utilities.pasta_menu import __menu__
 
 # import libs

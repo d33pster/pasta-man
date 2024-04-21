@@ -3,7 +3,7 @@
 #
 
 # import project specific modules.
-from pasta_man.exceptions import InvalidKeyword, InvalidExportType, InvalidImportType
+from pasta_man.utilities.Exceptions.exceptions import InvalidKeyword, InvalidExportType, InvalidImportType
 from pasta_man.utilities.retransform import Retransform
 
 # import other arguments
@@ -25,7 +25,7 @@ import sys
 #
 
 class targets:
-    def __init__(self, masterpassword: bytes, mastersalt: bytes = "pastaman".encode('ascii')):
+    def __init__(self, masterpassword: bytes):
         """Initialize targets class.
 
         Args:
@@ -38,7 +38,7 @@ class targets:
         """
         # initialize data
         self.data:list[dict] = []
-        self.msalt = mastersalt
+        self.msalt = "pastaman".encode('ascii')
         self.mpass = masterpassword
     
     def init(self):
@@ -290,7 +290,7 @@ class targets:
         """General purpose Export. Excludes timestamp.
 
         Args:
-            exporttype (str, optional): specify export type. Valid -> ['csv', 'xlsx']. Defaults to "csv".
+            exporttype (str, optional): specify export type. Valid -> ['.csv', '.xlsx']. Defaults to ".csv".
         """
         valid = ['csv', 'xlsx']
         

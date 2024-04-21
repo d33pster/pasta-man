@@ -55,7 +55,7 @@ from pathlib import Path
 import inspect
 
 # class definition
-class docstring:
+class Docstring:
     # __init__ function
     def __init__(self):
         """## Initialise the docstring class
