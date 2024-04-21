@@ -8,7 +8,7 @@ permissions:
   contents: read
 
 jobs:
-  setup:
+  pypi-publish:
 
     runs-on: ubuntu-latest
 
