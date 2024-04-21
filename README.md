@@ -139,7 +139,7 @@ $ pasta-man -dwl # for docs with listing of hierarchy.
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.0.10
+pip install pasta-man==1.1.0
 ```
 
 ## README before [#Usage](#usage)
