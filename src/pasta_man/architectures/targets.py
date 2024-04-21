@@ -286,13 +286,13 @@ class targets:
         self._dec_ = self.fernet.decrypt(password).decode('ascii')
         sys.exit(0)
     
-    def export(self, exporttype: str = ".csv", path: str = pwd()) -> None:
+    def export(self, exporttype: str = "csv", path: str = pwd()) -> None:
         """General purpose Export. Excludes timestamp.
 
         Args:
             exporttype (str, optional): specify export type. Valid -> ['.csv', '.xlsx']. Defaults to ".csv".
         """
-        valid = ['.csv', '.xlsx']
+        valid = ['csv', 'xlsx']
         
         if exporttype not in valid:
             raise InvalidExportType(f'{exporttype} is not supported yet.')
@@ -310,9 +310,9 @@ class targets:
         
         self.DataFrame = pd.DataFrame(__data).drop('timestamp', axis=1)
         
-        if exporttype == '.csv':
+        if exporttype == 'csv':
             self.DataFrame.to_csv(jPath(path, str(datetime.timestamp(datetime.now())).split('.')[0]+"-pastaman-passwords.csv"), index = False, header = False)
-        elif exporttype == '.xlsx':
+        elif exporttype == 'xlsx':
             self.DataFrame.to_excel(jPath(path, str(datetime.timestamp(datetime.now())).split('.')[0]+"-pastaman-passwords.xlsx"), index=False, header=False)
         
         sys.exit(0)
