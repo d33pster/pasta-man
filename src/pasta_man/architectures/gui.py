@@ -14,7 +14,7 @@ from tkinter import ttk, simpledialog, messagebox
 from os.path import join as jPath
 from pathlib import Path
 import pyperclip
-import threading
+import threading, platform
 
 class pmanager:
     def __init__(self, master:Tk, masterpassword: bytes):
@@ -23,7 +23,10 @@ class pmanager:
         # set title
         self.parent.title('Pasta-Man')
         # set geometry
-        self.parent.geometry('530x300+400+280')
+        if platform.system()!="Windows":
+            self.parent.geometry('530x300+400+280')
+        else:
+            self.parent.geometry('610x300+350+300')
         # set architecture
         self.arch = targets(masterpassword)
         
