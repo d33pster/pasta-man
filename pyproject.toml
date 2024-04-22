@@ -30,7 +30,7 @@ authors = [
 maintainers = [
     {name = "Soumyo Deep Gupta", email = "deep.main.ac@gmail.com"}
 ]
-dependencies = ['cryptography', 'pandas', 'termcolor', 'tk', 'optioner>=1.5.2', 'pyperclip', 'ttkthemes', 'pyinstaller']
+dependencies = ['cryptography', 'pandas', 'colorama', 'tk', 'optioner>=1.5.2', 'pyperclip', 'ttkthemes', 'pyinstaller']
 
 [project.scripts]
 pasta-man-launcher = "pasta_man.pasta_man:main"
