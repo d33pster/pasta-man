@@ -2,6 +2,12 @@
 
 All notable changes will be added in this file starting _v1.0.10_. All updates before that are squashed.
 
+### _v1.1.1_
+
+- replaced dependecy termcolor -> colorama
+
+- fixed windows GUI window homescreen
+
 ### _v1.1.0_ ~ Version Bump
 
 - fixed an issue with import-export -> program was quitting unexpectedly.
