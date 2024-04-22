@@ -11,7 +11,7 @@ from os.path import dirname, abspath, isdir, join as jPath, splitext, isfile
 from os import system as run, getcwd as pwd
 from pathlib import Path
 from optioner import options
-from termcolor import colored
+from colorama import Fore as f
 from shutil import rmtree
 import sys, platform, threading
 
@@ -79,22 +79,22 @@ class Terminal:
             sys.exit(0)
         elif '-dwl' in self.arguments or '--doc-w-list' in self.arguments:
             docs = Docstring()
-            print(colored('Pasta Man', 'blue'), colored(f'v{__version__}', 'red'))
-            print(colored('Hierarchy:', 'green'))
+            print(f'{f.BLUE}Pasta Man{f.RESET}', f'{f.RED}v{__version__}{f.RESET}')
+            print(f'{f.GREEN}Hierarchy:{f.RESET}')
             docs.listRecurseF()
             print('\nExample: pasta_man.architecures.gui')
-            userin = input(colored('pasta-man> ', 'light_green'))
+            userin = input(f'{f.LIGHTGREEN_EX}pasta-man>{f.RESET} ')
             document = docs.fetch(userin)
             if document and platform.system()=='Windows':
                 run("cls")
-                print('\n'+colored(f'{userin}', 'yellow'), 'docstring: ')
+                print('\n'+f'{f.YELLOW}{userin}{f.RESET}', 'docstring: ')
                 print(document)
             elif document:
                 run("clear")
-                print('\n'+colored(f'{userin}', 'yellow'), 'docstring: ')
+                print('\n'+f'{f.YELLOW}{userin}{f.RESET}', 'docstring: ')
                 print(document)
             else:
-                print(colored(f"No docstring defined for {userin}", 'red'))
+                print(f"{f.RED}No docstring defined for {userin}{f.RESET}")
             
             sys.exit(0)
         elif '-e' in self.arguments or '--export' in self.arguments:

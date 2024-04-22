@@ -7,7 +7,7 @@ Modules:
     - external:
         - description: Needs to be installed using pip.
         -contents:
-            termcolor.colored (function)
+            colorama.Fore (variable)
     - Project Specific
         - description: Modules made for this project.
 
@@ -37,7 +37,7 @@ Working:
 """
 
 
-from termcolor import colored
+from colorama import Fore as f
 import sys
 
 class Helptext:
@@ -45,16 +45,16 @@ class Helptext:
         self.__version__ = __version__
     
     def helper(self):
-        print(colored('Pasta Man', 'blue'), colored(f'v{self.__version__}', 'red'))
+        print(f'{f.BLUE}Pasta Man{f.RESET}', f'{f.RED}v{self.__version__}{f.RESET}')
         print("helptext")
         print("  |  -h or --help                     : show this help and exit.")
         print("  |  -v or --version                  : show version and exit.")
         print("  |  -p or --path                     : show install path and exit.")
-        print("  |  -rmc or --remove-configurations  : remove existing configs. ["+colored('Warning', 'red')+"] This is irreversible.")
+        print("  |  -rmc or --remove-configurations  : remove existing configs. ["+f'{f.RED}Warning{f.RESET}'+"] This is irreversible.")
         print("  |  -dwl or --doc-w-list             : list all modules of pasta-man. Enter the full-module-name for docstring.")
         sys.exit(0)
     
     def showver(self):
-        print(colored('Pasta Man', 'blue'), colored(f'v{self.__version__}', 'red'))
-        print('author: d33pster', 'GitHub:', colored('https://github.com/d33pster/pasta-man', 'light_blue'))
+        print(f'{f.BLUE}Pasta Man{f.RESET}', f'{f.RED}v{self.__version__}{f.RESET}')
+        print('author: d33pster', 'GitHub:', f'{f.LIGHTBLUE_EX}https://github.com/d33pster/pasta-man{f.RESET}')
         sys.exit(0)

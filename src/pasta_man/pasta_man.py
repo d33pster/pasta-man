@@ -21,7 +21,8 @@ Modules:
         -contents:
             tkinter.* (all)
             tkinter.simpledialog (module)
-            termcolor.colored (function)
+            colorama.init (function)
+            colorama.Fore (variable)
             optioner.options (class)
     - Project Specific
         - description: Modules made for this project.
@@ -70,7 +71,7 @@ import sys, threading
 # import external modules
 from tkinter import *
 from tkinter import simpledialog
-from termcolor import colored
+from colorama import init as color, Fore as f
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
@@ -162,6 +163,8 @@ def main():
     """
     The main function of the program.
     """
+    # initialize colorama
+    color()
     # -> home folder
     home = str(Path.home())
     # -> find out if .pastaman folder is there
@@ -194,5 +197,5 @@ if __name__=="__main__":
     try:
         sys.exit(main())
     except KeyboardInterrupt:
-        print("\n"+colored("KEYBOARD INTERRUPT", 'red'))
+        print("\n"+f"{f.RED}KEYBOARD INTERRUPT{f.RESET}")
         sys.exit(1)

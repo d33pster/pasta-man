@@ -5,4 +5,6 @@ This file has no use right now.
 """
 
 from pasta_man.pasta_man import main
-main()
+
+if __name__=="__main__":
+    main()
