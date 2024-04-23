@@ -131,8 +131,11 @@ class pmanager:
         self.fetchstatusvar = StringVar()
         self.fetchstatus = ttk.Label(self.FEF, textvariable=self.fetchstatusvar)
         self.fetchstatus.place(anchor='center', relx=0.5, rely=0.79)
+        
+        # -> bind search entry
+        self.searchEntry.bind('<Return>', self.search)
     
-    def search(self):
+    def search(self, event=None):
         # -> fetch value and search:
         t1 = threading.Thread(target=self.arch.search, args=(self.varsearch.get(), self.varoption.get()))
         t1.start()
@@ -190,14 +193,7 @@ class pmanager:
         with open(jPath(str(Path.home()), '.pastaman', '.m'), 'rb') as m:
             masterpassword = m.read() # this is encrypted
         
-        def decryptthread(masterpassword: str):
-            denc = Encryption("pastaman".encode('ascii'), masterpassword.encode('ascii'))
-            denc.unlock()
-            self.den = denc.__unencryptedstring__
-            sys.exit(0)
-        
-        
-        t1 = threading.Thread(target=decryptthread, args=(masterpassword.decode('ascii'),))
+        t1 = threading.Thread(target=self.decryptthread, args=(masterpassword.decode('ascii'),))
         t1.start()
         t1.join()
         
@@ -207,11 +203,16 @@ class pmanager:
             t.start()
             t.join()
             
-            pyperclip.copy(self.arch._dec_)
+            pyperclip.copy(self.arch.dec)
             spam = pyperclip.paste()
             self.arch._dec_ = None
         else:
             messagebox.showwarning("Wrong Master Password", "The master password entered by you is wrong!")
+    
+    def decryptthread(self, masterpassword: str):
+            denc = Encryption(masterpassword.encode('ascii'))
+            self.den = denc.unlock()
+            sys.exit(0)
         
     def _makeAdd_(self):
         # -> create enclosing frame under Add
