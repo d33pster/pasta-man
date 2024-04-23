@@ -165,7 +165,8 @@ Themes can be changed using the MenuBar -
 - pandas
 - tk
 - ttkthemes
-- termcolor
+- colorama
+- wrapper-bar>=0.1.3
 - pyperclip
 - optioner>=1.5.2
 - cryptography
@@ -176,7 +177,7 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.1.0
+pip install pasta-man==1.1.1
 ```
 
 ## README before [#Usage](#usage)
@@ -201,16 +202,32 @@ After update _v1.0.4_, `pasta-man` launches as a separate process. There are two
 
 ## Usage
 
-- To run `Pasta-Man`, run the following in the terminal/CMD.
+- To run `Pasta-Man`, run the following in the terminal/CMD. This will open up GUI.
 
     ```bash
-    pasta-man
+    $ pasta-man
+    ...
     ```
 
-- To show version information, run the following in terminal/CMD
+- To show full list of CLI commands supported by `pasta-man`, in terminal/CMD, run:
 
     ```bash
-    pasta-man -v # or pasta-man --version
+    $ pasta-man -h # or pasta-man --help
+    Pasta Man v1.1.1
+    helptext
+      |  -h or --help                     : show this help and exit.
+      |  -v or --version                  : show version and exit.
+      |  -p or --path                     : show install path and exit.
+      |  -rmc or --remove-configurations  : remove existing configs. [Warning] This is irreversible.
+      |  -dwl or --doc-w-list             : list all modules of pasta-man. Enter the full-module-name for docstring.
+      |  -i or --import                   : import a passwords file. Only files exported by pasta-man can be imported.
+      |                                     Syntax: pasta-man --import
+      |  -e or --export                   : export passwords.
+      |                                     Syntax: pasta-man --export <export-format>
+      |                                     Available export formats -> ['csv', 'xlsx']
+      |  -s or --search                   : search a keyword in keyword-type.
+      |                                     Syntax: pasta-man --search <keyword-type> <keyword>
+      |                                     Available keyword types -> ['target', 'target-type', 'username']
     ```
 
 ## Troubleshooting
@@ -228,19 +245,8 @@ After update _v1.0.4_, `pasta-man` launches as a separate process. There are two
     pasta-man --remove-configurations
     ```
 
-    And then run `pasta-man` again.
-
-  - For Complete list of Developer Options of pasta-man, run the following commands.
-
-    ```batch
-    pasta-man -h
-    ```
-
-    or
-
-    ```batch
-    pasta-man --help
-    ```
+    And then run `pasta-man` again.  
+    NOTE: This command is irreversible and will also delete master password along with any saved passwords.
 
 ## Uninstall
 
