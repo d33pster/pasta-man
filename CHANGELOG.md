@@ -23,6 +23,10 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 - added helptext for search option
 
+- added Return key integration with the GUI search
+
+- added cache cleaning as soon as program exits
+
 ### _v1.1.0_ ~ Version Bump
 
 - fixed an issue with import-export -> program was quitting unexpectedly.
