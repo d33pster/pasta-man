@@ -60,12 +60,13 @@ Working:
 """
 
 # version info
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # import internal modules
 from pathlib import Path
-from os.path import join as jPath, exists as there
+from os.path import join as jPath, exists as there, dirname, abspath
 from os import makedirs
+from shutil import rmtree
 import sys, threading
 
 # import external modules
@@ -179,6 +180,11 @@ def main():
     
     try:
         terminal = Terminal(__version__, sys.argv[1:], masterpassword)
+        # clear __pycache__
+        # -> get directory
+        install_directory = dirname(abspath(__file__))
+        rmtree(jPath(install_directory, '__pycache__'))
+        sys.exit(0)
     except EmptyArgument:
         pass
     
