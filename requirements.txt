@@ -6,4 +6,4 @@ optioner>=1.5.2
 pyperclip
 ttkthemes
 pinstaller
-wrapper-bar
+wrapper-bar>=0.1.3
