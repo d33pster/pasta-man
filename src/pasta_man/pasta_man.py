@@ -21,7 +21,8 @@ Modules:
         -contents:
             tkinter.* (all)
             tkinter.simpledialog (module)
-            termcolor.colored (function)
+            colorama.init (function)
+            colorama.Fore (variable)
             optioner.options (class)
     - Project Specific
         - description: Modules made for this project.
@@ -59,18 +60,19 @@ Working:
 """
 
 # version info
-__version__ = "1.1.0"
+__version__ = "1.1.1"
 
 # import internal modules
 from pathlib import Path
-from os.path import join as jPath, exists as there
+from os.path import join as jPath, exists as there, dirname, abspath
 from os import makedirs
+from shutil import rmtree
 import sys, threading
 
 # import external modules
 from tkinter import *
 from tkinter import simpledialog
-from termcolor import colored
+from colorama import init as color, Fore as f
 
 # import project specific modules
 from pasta_man.architectures.gui import pmanager
@@ -162,6 +164,8 @@ def main():
     """
     The main function of the program.
     """
+    # initialize colorama
+    color()
     # -> home folder
     home = str(Path.home())
     # -> find out if .pastaman folder is there
@@ -176,6 +180,11 @@ def main():
     
     try:
         terminal = Terminal(__version__, sys.argv[1:], masterpassword)
+        # clear __pycache__
+        # -> get directory
+        install_directory = dirname(abspath(__file__))
+        rmtree(jPath(install_directory, '__pycache__'))
+        sys.exit(0)
     except EmptyArgument:
         pass
     
@@ -194,5 +203,5 @@ if __name__=="__main__":
     try:
         sys.exit(main())
     except KeyboardInterrupt:
-        print("\n"+colored("KEYBOARD INTERRUPT", 'red'))
+        print("\n"+f"{f.RED}KEYBOARD INTERRUPT{f.RESET}")
         sys.exit(1)

@@ -271,6 +271,23 @@ class targets:
                 self.__searchresult__ = dictionary
         
         sys.exit(0)
+    
+    def searchAll(self, searchkeyword:str, keywordtype: str = "target"):
+        valid = ['target', 'target-type', 'username']
+        
+        if keywordtype not in valid:
+            raise InvalidKeyword(f'{keywordtype} cannot be set as keywordtype.')
+        
+        self.__searchAllResult = []
+        
+        for dictionary in self.data:
+            if searchkeyword in dictionary[keywordtype]:
+                self.__searchAllResult.append(dictionary)
+    
+    def __fetchSearchAll(self):
+        return self.__searchAllResult
+    
+    searchAllResults = property(fget=__fetchSearchAll)
 
     def targets(self):
         ts:list[str] = []
@@ -283,7 +300,7 @@ class targets:
         self.__target_types__ = ts
     
     def decrypt(self, password: bytes):
-        self._dec_ = self.fernet.decrypt(password).decode('ascii')
+        self.dec = self.fernet.decrypt(password).decode('ascii')
         sys.exit(0)
     
     def export(self, exporttype: str = "csv", path: str = pwd()) -> None:
