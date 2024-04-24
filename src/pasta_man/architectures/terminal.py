@@ -86,7 +86,7 @@ class Terminal:
             print(f'{f.BLUE}Pasta Man{f.RESET}', f'{f.RED}v{__version__}{f.RESET}')
             print(f'{f.GREEN}Hierarchy:{f.RESET}')
             docs.listRecurseF()
-            print('\nExample: pasta_man.architecures.gui')
+            print('\nExample: pasta_man.architectures.gui')
             userin = input(f'{f.LIGHTGREEN_EX}pasta-man>{f.RESET} ')
             document = docs.fetch(userin)
             if document and platform.system()=='Windows':

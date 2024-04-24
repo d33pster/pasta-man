@@ -141,12 +141,12 @@ $ pasta-man -dwl # for docs with listing of hierarchy.
 
 User can now change Theme for the app from the Menu Bar. Default is `Arc`. Whatever theme the user chooses, It will be set as default and next time `Pasta-Man` is launched, that theme will be loaded.
 
-Themes can be changed using the MenuBar -
+Themes can be changed using the MenuBar
 
-<!-- <img src="images/MenuBar.png"> -->
+<!-- <img src="images/MenuBar.png">
 ![menubarimage](images/MenuBar.png)
 
-###### <p align='center'>MenuBar Screenshot<p>
+###### <p align='center'>MenuBar Screenshot<p> -->
 
 #### Currently Supported Themes
 
@@ -268,7 +268,7 @@ pip uninstall pasta-man
 
 - All below _v1.1.2_
 
-  No support for `Python 3.9`.
+    No support for `Python 3.9`.
 
 - _v1.0.5_
 

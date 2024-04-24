@@ -4,12 +4,17 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 ## Table of Contents
 
+- [**_v1.1.2_**](#v112)
 - [**_v1.1.1_**](#v111)
 - [**_v1.1.0_**](#v110--version-bump)
 - [**_v1.0.10_**](#v1010)
 - [Before **_v1.0.10_**](#before-v1010)
 
 ## CHANGELOG
+
+### _v1.1.2_
+
+- removed support for python3.9 and below.
 
 ### _v1.1.1_
 
