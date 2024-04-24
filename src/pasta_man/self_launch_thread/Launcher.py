@@ -133,6 +133,7 @@ with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
     
     print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
 def main():
+    color()
     checklogfile()
     # check for arguments
     if len(sys.argv[1:])>0:
