@@ -88,21 +88,48 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     chdir(directory)
     print(f'{f.RED}(one-time-setup){f.RESET}')
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
+    
     codes = [
-        f"""
-with open(r\'{jPath(directory, 'win-setup.bat')}\', \'w\') as batfile:
-    batfile.write(\"{batdat}\")
-""",
-        f"""subprocess.Popen([r\"{jPath(directory, 'win-setup.bat')}\"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()"""
+        f"""subprocess.Popen(['pyinstaller', '--onefile', '--noconsole', 'pasta_man.py'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()""",
     ]
     
     dependencies = [
-        """from os.path import join as jPath""",
         """import subprocess"""
     ]
     
-    wrap = Wrapper("Making Pasta:")
-    wrap.pyShellWrapper(codes, dependencies,0.3, 60)
+    wrap = Wrapper('Making pasta:')
+    wrap.pyShellWrapper(codes, dependencies, 0.2, 60)
+    
+    codes = [
+        """shutil.rmtree(join(pwd(), 'build'))""",
+        """remove(join(pwd(), 'pasta_man.spec'))""",
+        """shutil.copyfile(join(pwd(), 'dist', 'pasta_man.exe'), join(str(Path.home()), '.pastaman', 'pasta-man.exe'))"""
+    ]
+    
+    dependencies = [
+        """import shutil""",
+        """from os.path import join""",
+        """from os import getcwd as pwd, remove""",
+        """from pathlib import Path"""
+    ]
+    
+    wrap = Wrapper('Cleaning up:')
+    wrap.pyShellWrapper(codes, dependencies, 0.2, 60)
+    
+    codes = ["""
+path = join(str(Path.home()), '.pastaman')
+with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
+    vbs.write("Set pastashell = WScript.CreateObject('WScript.Shell')\\n")
+    vbs.write(r"pastashell.Run '%USERPROFILE%\\.pastaman\\pasta-man.exe', 0, False")
+"""]
+    
+    dependencies = [
+        """from pathlib import Path""",
+        """from os.path import join"""
+    ]
+    
+    wrap = Wrapper('Creating pasta-man.vbs:')
+    wrap.pyShellWrapper(codes, dependencies, 0.01, 60)
     
     print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
 def main():
