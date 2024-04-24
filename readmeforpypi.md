@@ -185,7 +185,7 @@ Themes can be changed using the MenuBar
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.1.2
+pip install pasta-man==1.1.3
 ```
 
 ## README before [#Usage](#usage)
@@ -221,7 +221,7 @@ After update _v1.0.4_, `pasta-man` launches as a separate process. There are two
 
     ```bash
     $ pasta-man -h # or pasta-man --help
-    Pasta Man v1.1.1
+    Pasta Man v1.1.3
     helptext
       |  -h or --help                     : show this help and exit.
       |  -v or --version                  : show version and exit.

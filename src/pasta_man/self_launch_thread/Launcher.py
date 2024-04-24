@@ -45,7 +45,9 @@ from platform import system as os
 from os import system as run, makedirs, chdir
 from os.path import exists as there, join as jPath, dirname, abspath, basename
 from pathlib import Path
-import sys, subprocess
+from wrapper_bar.wrapper import Wrapper
+import sys
+from colorama import init as color, Fore as f
 
 def checklogfile():
     """## check for .log file, if not present, create it
@@ -84,13 +86,25 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
-    print('(one-time)')
+    print(f'{f.RED}(one-time-setup){f.RESET}')
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
-    with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
-        batfile.write(batdat)
-    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
-    print('complete.')
-
+    codes = [
+        f"""
+with open(jPath({directory}, \'win-setup.bat\'), \'w\') as batfile:
+    batfile.write({batdat})
+""",
+        f"""subprocess.Popen([\"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()"""
+    ]
+    
+    dependencies = [
+        """from os.path import join as jPath""",
+        """import subprocess"""
+    ]
+    
+    wrap = Wrapper("Making Pasta:")
+    wrap.pyShellWrapper(codes, dependencies,0.3, 60)
+    
+    print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
 def main():
     checklogfile()
     # check for arguments
