@@ -19,7 +19,7 @@ classifiers = [
     "Intended Audience :: End Users/Desktop"
 ]
 keywords = ['d33pster', 'pasta-man', 'passman', 'pastaman', 'password-manager', 'password manager', 'password', 'manager']
-readme = {file = "README.md", content-type = "text/markdown"}
+readme = {file = "readmeforpypi.md", content-type = "text/markdown"}
 license = { file = "LICENSE" }
 authors = [
     {name = "Soumyo Deep Gupta", email = "deep.main.ac@gmail.com"},
