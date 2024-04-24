@@ -114,7 +114,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     ]
     
     wrap = Wrapper('Cleaning up:')
-    wrap.pyShellWrapper(codes, dependencies, 0.2, 60)
+    wrap.pyShellWrapper(codes, dependencies, 0.04, 60)
     
     codes = ["""
 path = join(str(Path.home()), '.pastaman')
