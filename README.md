@@ -11,6 +11,14 @@ Pasta-Man is a software application designed to securely store passwords and sen
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/pasta-man)
 ![PyPI - License](https://img.shields.io/pypi/l/pasta-man)
 
+## Important Updates
+
+- **No version of this software support python 3.9. Try upgrading to python 3.10**. All versions below _v1.1.2_ were yanked due to this. However, they will run fine on python 3.10 and above. To install them, use `==<version>` while using pip.
+
+  ```bash
+  pip install pasta-man==<version>
+  ```
+
 ## Changelog
 
 See Changelog [here](CHANGELOG.md).
@@ -177,7 +185,7 @@ Themes can be changed using the MenuBar -
 Easily install pasta-man using pip.
 
 ```bash
-pip install pasta-man==1.1.1
+pip install pasta-man==1.1.2
 ```
 
 ## README before [#Usage](#usage)
