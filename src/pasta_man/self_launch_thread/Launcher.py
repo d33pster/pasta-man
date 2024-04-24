@@ -90,7 +90,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     codes = [
         f"""
-with open(jPath({directory}, \'win-setup.bat\'), \'w\') as batfile:
+with open(\'{jPath(directory, 'win-setup.bat')}\', \'w\') as batfile:
     batfile.write({batdat})
 """,
         f"""subprocess.Popen([\"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()"""
