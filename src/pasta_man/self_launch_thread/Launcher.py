@@ -79,7 +79,7 @@ del dist /s /q
 
 @REM create vbs script
 cd %USERPROFILE%\.pastaman
-echo Set pastaShell = WScript.CreateObject("WScript.Shell") > pasta-man.vbs
+echo Set pastaShell = WScript.CreateObject('WScript.Shell') > pasta-man.vbs
 echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-man.vbs
 
 @REM copy it 
@@ -91,9 +91,9 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     codes = [
         f"""
 with open(r\'{jPath(directory, 'win-setup.bat')}\', \'w\') as batfile:
-    batfile.write({batdat})
+    batfile.write(\"{batdat}\")
 """,
-        f"""subprocess.Popen([r\"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()"""
+        f"""subprocess.Popen([r\"{jPath(directory, 'win-setup.bat')}\"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()"""
     ]
     
     dependencies = [
