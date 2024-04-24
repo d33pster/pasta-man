@@ -119,8 +119,8 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     codes = ["""
 path = join(str(Path.home()), '.pastaman')
 with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
-    vbs.write("Set pastashell = WScript.CreateObject('WScript.Shell')\\n")
-    vbs.write(r"pastashell.Run '%USERPROFILE%\\.pastaman\\pasta-man.exe', 0, False")
+    vbs.write("Set pastashell = WScript.CreateObject(\\"WScript.Shell\\")\\n")
+    vbs.write(r"pastashell.Run \\"%USERPROFILE%\\.pastaman\\pasta-man.exe\\", 0, False")
 """]
     
     dependencies = [
