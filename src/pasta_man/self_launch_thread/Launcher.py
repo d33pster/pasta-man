@@ -45,7 +45,9 @@ from platform import system as os
 from os import system as run, makedirs, chdir
 from os.path import exists as there, join as jPath, dirname, abspath, basename
 from pathlib import Path
-import sys, subprocess
+from wrapper_bar.wrapper import Wrapper
+import sys
+from colorama import init as color, Fore as f
 
 def checklogfile():
     """## check for .log file, if not present, create it
@@ -77,21 +79,60 @@ del dist /s /q
 
 @REM create vbs script
 cd %USERPROFILE%\.pastaman
-echo Set pastaShell = WScript.CreateObject("WScript.Shell") > pasta-man.vbs
+echo Set pastaShell = WScript.CreateObject('WScript.Shell') > pasta-man.vbs
 echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-man.vbs
 
 @REM copy it 
 """
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
-    print('(one-time)')
+    print(f'{f.RED}(one-time-setup){f.RESET}')
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
-    with open(jPath(directory, 'win-setup.bat'), 'w') as batfile:
-        batfile.write(batdat)
-    subprocess.Popen([f"{jPath(directory, 'win-setup.bat')}"], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()
-    print('complete.')
-
+    
+    wrap = Wrapper()
+    
+    codes = [
+        f"""subprocess.Popen(['pyinstaller', '--onefile', '--noconsole', 'pasta_man.py'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()""",
+    ]
+    
+    dependencies = [
+        """import subprocess"""
+    ]
+    
+    wrap.pyShellWrapper(codes, dependencies, delay=0.2, width=70, label="Making pasta:", timer="ElapsedTime")
+    
+    codes = [
+        """shutil.rmtree(join(pwd(), 'build'))""",
+        """remove(join(pwd(), 'pasta_man.spec'))""",
+        """shutil.copyfile(join(pwd(), 'dist', 'pasta_man.exe'), join(str(Path.home()), '.pastaman', 'pasta-man.exe'))"""
+    ]
+    
+    dependencies = [
+        """import shutil""",
+        """from os.path import join""",
+        """from os import getcwd as pwd, remove""",
+        """from pathlib import Path"""
+    ]
+    
+    wrap.pyShellWrapper(codes, dependencies, delay=0.03, width=62, label="Cleaning up:")
+    
+    codes = ["""
+path = join(str(Path.home()), '.pastaman')
+with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
+    vbs.write("Set pastashell = WScript.CreateObject(\\"WScript.Shell\\")\\n")
+    vbs.write("pastashell.Run \\"%USERPROFILE%\\\\.pastaman\\\\pasta-man.exe\\", 0, False")
+"""]
+    
+    dependencies = [
+        """from pathlib import Path""",
+        """from os.path import join"""
+    ]
+    
+    wrap.pyShellWrapper(codes, dependencies, delay=0.01, width=60, label="Garnishing:")
+    
+    print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
 def main():
+    color()
     checklogfile()
     # check for arguments
     if len(sys.argv[1:])>0:
