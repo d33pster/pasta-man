@@ -4,6 +4,7 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 ## Table of Contents
 
+- [**_v1.1.3_**](#v113)
 - [**_v1.1.2_**](#v112)
 - [**_v1.1.1_**](#v111)
 - [**_v1.1.0_**](#v110--version-bump)
@@ -11,6 +12,12 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 - [Before **_v1.0.10_**](#before-v1010)
 
 ## CHANGELOG
+
+### _v1.1.3_
+
+- added loading bars in windows setup
+
+- updated wrapper_bar dependency _v0.1.3_ => _v0.1.4_
 
 ### _v1.1.2_
 
