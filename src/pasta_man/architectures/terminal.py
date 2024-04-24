@@ -146,8 +146,8 @@ results = pd.DataFrame(results)
                 """import pandas as pd"""
             ]
             
-            wrap = Wrapper("searching:")
-            wrap.pyShellWrapper(codes, dependencies, 0.001)
+            wrap = Wrapper()
+            wrap.pyShellWrapper(codes, dependencies, delay=0.001, label="searching:")
             results = wrap.pyShellWrapperResults['results']
             if not results.empty:
                 print(results.drop(['password', 'timestamp'], axis=1))
@@ -189,8 +189,7 @@ spam = pyperclip.paste()
                     """from pasta_man.architectures.targets import targets"""
                 ]
                 
-                wrap = Wrapper("decrypting:")
-                wrap.pyShellWrapper(codes, dependencies, 0.001)
+                wrap.pyShellWrapper(codes, dependencies, delay=0.001, label="decrypting:")
                 print(f"{f.GREEN}Password copied to clipboard.{f.RESET}")
             
             

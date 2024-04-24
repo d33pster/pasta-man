@@ -89,6 +89,8 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
     print(f'{f.RED}(one-time-setup){f.RESET}')
     print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     
+    wrap = Wrapper()
+    
     codes = [
         f"""subprocess.Popen(['pyinstaller', '--onefile', '--noconsole', 'pasta_man.py'], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL).wait()""",
     ]
@@ -97,8 +99,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
         """import subprocess"""
     ]
     
-    wrap = Wrapper('Making pasta:')
-    wrap.pyShellWrapper(codes, dependencies, 0.2, 60)
+    wrap.pyShellWrapper(codes, dependencies, delay=0.2, width=70, label="Making pasta:", timer="ElapsedTime")
     
     codes = [
         """shutil.rmtree(join(pwd(), 'build'))""",
@@ -113,8 +114,7 @@ echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-m
         """from pathlib import Path"""
     ]
     
-    wrap = Wrapper('Cleaning up:')
-    wrap.pyShellWrapper(codes, dependencies, 0.04, 60)
+    wrap.pyShellWrapper(codes, dependencies, delay=0.03, width=62, label="Cleaning up:")
     
     codes = ["""
 path = join(str(Path.home()), '.pastaman')
@@ -128,8 +128,7 @@ with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
         """from os.path import join"""
     ]
     
-    wrap = Wrapper('Creating pasta-man.vbs:')
-    wrap.pyShellWrapper(codes, dependencies, 0.01, 60)
+    wrap.pyShellWrapper(codes, dependencies, delay=0.01, width=60, label="Garnishing:")
     
     print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
 def main():
