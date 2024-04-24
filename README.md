@@ -266,6 +266,10 @@ pip uninstall pasta-man
 
 ## Yanked Versions
 
+- All below _v1.1.2_
+
+  No support for `Python 3.9`.
+
 - _v1.0.5_
 
     `Major Bug`: After Threads Update and Threads Patch 1, There was a major bug where the code breaks while initializing the app for the first time.
