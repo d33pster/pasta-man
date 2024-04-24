@@ -4,6 +4,7 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 ## Table of Contents
 
+- [**_v1.1.4_**](#v114)
 - [**_v1.1.3_**](#v113)
 - [**_v1.1.2_**](#v112)
 - [**_v1.1.1_**](#v111)
@@ -13,19 +14,23 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 ## CHANGELOG
 
+### _v1.1.4_
+
+- added `requests` as a dependency
+
 ### _v1.1.3_
 
 - added loading bars in windows setup
 
-- updated wrapper_bar dependency _v0.1.3_ => _v0.1.4_
+- updated `wrapper_bar` dependency _v0.1.3_ => _v0.1.4_
 
 ### _v1.1.2_
 
-- removed support for python3.9 and below.
+- removed support for `python3.9` and below.
 
 ### _v1.1.1_
 
-- replaced dependecy termcolor -> colorama
+- replaced dependecy `termcolor` -> `colorama`
 
 - fixed windows GUI window homescreen
 
