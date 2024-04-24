@@ -174,7 +174,7 @@ Themes can be changed using the MenuBar -
 - tk
 - ttkthemes
 - colorama
-- wrapper-bar>=0.1.3
+- wrapper-bar>=0.1.4
 - pyperclip
 - optioner>=1.5.2
 - cryptography
