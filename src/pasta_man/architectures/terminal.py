@@ -15,15 +15,16 @@ from optioner import options
 from colorama import Fore as f
 from shutil import rmtree
 from wrapper_bar.wrapper import Wrapper
-import sys, platform, threading, pyperclip
+import sys, platform, threading, requests
 from getpass import getpass
 
 class Terminal:
     def __init__(self, __version__:str, globalArgs: list[str], masterpassword: bytes) -> None:
+        self.__version = __version__
         self.__masterpassword = masterpassword
         self.__argv = globalArgs
-        self.__shortargs = ['h', 'v', 'p', 'rmc', 'dwl', 'i', 'e', 's']
-        self.__longargs = ['help', 'version', 'path', 'remove-configurations', 'doc-w-list', 'import', 'export', 'search']
+        self.__shortargs = ['h', 'v', 'p', 'rmc', 'dwl', 'i', 'e', 's', 'upg', 'upd']
+        self.__longargs = ['help', 'version', 'path', 'remove-configurations', 'doc-w-list', 'import', 'export', 'search', 'upgrade', 'update']
         self.__mutex = [
             ['help', 'h'],self.__remFromOriginal(['help', 'h']),
             ['v', 'version'], self.__remFromOriginal(['v', 'version']),
@@ -32,14 +33,46 @@ class Terminal:
             ['dwl', 'doc-w-list'], self.__remFromOriginal(['dwl', 'doc-w-list']),
             ['i', 'import'], self.__remFromOriginal(['i', 'import']),
             ['e', 'export'], self.__remFromOriginal(['export', 'e']),
-            ['s', 'search'], self.__remFromOriginal(['s', 'search'])
+            ['s', 'search'], self.__remFromOriginal(['s', 'search']),
+            ['upg', 'upgrade'], self.__remFromOriginal(['upg', 'upgrade']),
+            ['upd', 'update'], self.__remFromOriginal(['upd', 'update'])
         ]
-
+        
         self.__analyze()
+        
+        if '-upd' in self.arguments or '--update' in self.arguments or '-upg' in self.arguments or '--upgrade' in self.arguments:
+            pass
+        else:
+            self.__updateCheck()
+        
         self.__help(__version__)
         self.__readOnlyArgs(__version__)
         self.__permanentEffectArgs()
-        
+    
+    @property
+    def version(self):
+        return self.__version
+    
+    def __updateCheck(self):
+        print(f"{f.BLUE}running *auto-update-check*{f.RESET}", end="\r")
+        if requests.get('https://google.com').status_code == 200:
+            from pasta_man.utilities.upgrade import VersionCheck
+            vc = VersionCheck()
+            vc.action = 'update'
+            available_update = vc.actionversion
+            
+            vc.action = 'upgrade'
+            available_upgrade = vc.actionversion
+            
+            print("                                                                    ", end='\r') # clear buffer
+            # if update/upgrade available, it wont be none
+            if available_update!=None and available_update!='0' and available_update!=0:
+                print(f"\n{f.RED}pasta-man can be updated{f.RESET} {self.version} -> {available_update}")
+            if available_upgrade!=None:
+                print(f"{f.GREEN}pasta-man can be upgraded{f.RESET} {self.version} -> {available_upgrade}\n")
+        else:
+            pass
+    
     def __remFromOriginal(self, excpt: list[str]) -> list[str]:
         self.ORIGINAL = self.__shortargs + self.__longargs
         withoutExcept: list[str] = []
@@ -223,6 +256,16 @@ spam = pyperclip.paste()
                 t1.join()
                 threading.Thread(target=target.importer, args=(ext, path)).start()
             
-            
+        elif '-upd' in self.arguments or '--update' in self.arguments:
+            from pasta_man.utilities.upgrade import Update
+            upd = Update()
+            if upd.connectivity:
+                upd.update()
+                if upd.status:
+                    print(f"{f.BLUE}Update complete.{f.RESET}")
+                else:
+                    print(f"{f.RED}Update InComplete{f.RESET}")
+            else:
+                print(f"{f.RED}No Internet Connection Detected.{f.RESET}")
         else:
             pass

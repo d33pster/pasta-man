@@ -60,34 +60,8 @@ def checklogfile():
             logfile.write("log file init")
 
 def makePasta():
-    batdat = """
-@REM turn printing of commands off
-@echo off
-
-@REM install using pyinstaller.
-pyinstaller --onefile --noconsole pasta_man.py > NUL
-
-@REM After this delete .spec file and build folder tree.
-del build /s /q
-del pasta_man.spec
-
-@REM copy dist/pasta_man.exe to %USERPROFILE%\.pastaman\pasta-man.exe
-copy dist\pasta_man.exe %USERPROFILE%\.pastaman\pasta-man.exe
-
-@REM delete dist
-del dist /s /q
-
-@REM create vbs script
-cd %USERPROFILE%\.pastaman
-echo Set pastaShell = WScript.CreateObject('WScript.Shell') > pasta-man.vbs
-echo pastaShell.Run "%USERPROFILE%\.pastaman\pasta-man.exe", 0, False >> pasta-man.vbs
-
-@REM copy it 
-"""
     directory = dirname(dirname(abspath(__file__))) # pasta_man directory
     chdir(directory)
-    print(f'{f.RED}(one-time-setup){f.RESET}')
-    print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
     
     wrap = Wrapper()
     
@@ -131,6 +105,8 @@ with open(join(path, 'pasta-man.vbs'), 'w') as vbs:
     wrap.pyShellWrapper(codes, dependencies, delay=0.01, width=60, label="Garnishing:")
     
     print(f"{f.LIGHTGREEN_EX}Serving...{f.RESET}")
+
+
 def main():
     color()
     checklogfile()
@@ -150,7 +126,9 @@ def main():
     if system=='Darwin' or system=='Linux':
         run('nohup pasta-man-launcher > ~/.pastaman/.log &')
     elif system=='Windows':
-        if not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')):
+        if (not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.exe'))) or (not there(jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs'))):
+            print(f'{f.RED}(one-time-setup){f.RESET}')
+            print('Operating System: Windows\nsetting up pasta-man...\nThis might take a while.')
             makePasta()
         chdir(jPath(str(Path.home()), '.pastaman'))
         run(f"start /B wscript.exe {jPath(str(Path.home()), '.pastaman', 'pasta-man.vbs')}")

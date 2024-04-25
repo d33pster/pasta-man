@@ -18,6 +18,10 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 - added `requests` as a dependency
 
+- added `auto-update-check` in CLI
+
+- added `-upd` and `--update` options in CLI
+
 ### _v1.1.3_
 
 - added loading bars in windows setup
