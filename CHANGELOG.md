@@ -4,6 +4,7 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 
 ## Table of Contents
 
+- [**_v1.1.5_**](#v115)
 - [**_v1.1.4_**](#v114)
 - [**_v1.1.3_**](#v113)
 - [**_v1.1.2_**](#v112)
@@ -13,6 +14,10 @@ All notable changes will be added in this file starting **_v1.0.10_**. All updat
 - [Before **_v1.0.10_**](#before-v1010)
 
 ## CHANGELOG
+
+## _v1.1.5_
+
+- fixed an issue where both update and upgrade showed the same value even when only update should be there.
 
 ### _v1.1.4_
 

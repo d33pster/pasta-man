@@ -129,7 +129,14 @@ class VersionCheck:
                 return finalversion
             elif action=='upgrade':
                 if self.__fetched_version != None and self.__fetched_version!=self.__system_version and self.biggerVersion(self.__fetched_version, self.__system_version) != self.__system_version:
-                    return self.__fetched_version
+                    if self.__system_version[0] == self.__fetched_version[0]:
+                        if self.__system_version[2] == self.__fetched_version[2]:
+                            # if first two digits are same then only update can be done.
+                            return None
+                        elif self.__fetched_version[2] > self.__system_version[2]:
+                            return self.__fetched_version
+                    elif self.__fetched_version[0] > self.__system_version[0]:
+                        return self.__fetched_version
         else:
             return None
         

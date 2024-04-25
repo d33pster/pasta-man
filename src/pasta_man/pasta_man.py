@@ -60,7 +60,7 @@ Working:
 """
 
 # version info
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 
 # import internal modules
 from pathlib import Path
