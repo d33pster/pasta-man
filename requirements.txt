@@ -7,3 +7,4 @@ pyperclip
 ttkthemes
 pinstaller
 wrapper-bar>=0.1.4
+requests
