@@ -69,7 +69,8 @@ class Terminal:
             if available_update!=None and available_update!='0' and available_update!=0:
                 print(f"\n{f.RED}pasta-man can be updated{f.RESET} {self.version} -> {available_update}")
             if available_upgrade!=None:
-                print(f"{f.GREEN}pasta-man can be upgraded{f.RESET} {self.version} -> {available_upgrade}\n")
+                print(f"{f.GREEN}pasta-man can be upgraded{f.RESET} {self.version} -> {available_upgrade}")
+            print('')
         else:
             pass
     
