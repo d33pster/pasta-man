@@ -4,3 +4,5 @@ src/pasta_man/__pycache__
 src/pasta_man.egg*/
 build/
 dist/
+.replit
+replit.nix
