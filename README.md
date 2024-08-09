@@ -10,6 +10,7 @@ Pasta-Man is a software application designed to securely store passwords and sen
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pasta-man)
 ![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/pasta-man)
 ![PyPI - License](https://img.shields.io/pypi/l/pasta-man)
+[![Downloads](https://static.pepy.tech/badge/deny-me)](https://pepy.tech/project/deny-me)
 
 ## Important Updates
 
